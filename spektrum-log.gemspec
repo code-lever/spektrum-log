@@ -4,8 +4,8 @@ require File.expand_path('../lib/spektrum-log/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Nick Veys"]
   gem.email         = ["nveys@aramisgroup.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Read and interpret Spektrum TLM log files.}
+  gem.summary       = %q{Spektrum TLM log file reader}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
