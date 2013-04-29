@@ -2,6 +2,11 @@
 
 TODO: Write a gem description
 
+Research:
+
+* http://www.rcgroups.com/forums/showthread.php?t=1726960
+* http://www.rcgroups.com/forums/showthread.php?t=1725173
+
 ## Installation
 
 Add this line to your application's Gemfile:
