@@ -11,3 +11,7 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = 'random'
 end
+
+def tlm_file(name)
+  "#{File.dirname(__FILE__)}/#{name}"
+end
