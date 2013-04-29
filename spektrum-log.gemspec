@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "spektrum-log"
   gem.require_paths = ["lib"]
   gem.version       = Spektrum::Log::VERSION
+
+  gem.add_development_dependency 'rspec', '~> 2.12'
 end
