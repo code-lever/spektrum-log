@@ -1,3 +1,4 @@
+require "spektrum-log/flight"
 require "spektrum-log/headers"
 require "spektrum-log/reader"
 require "spektrum-log/records"

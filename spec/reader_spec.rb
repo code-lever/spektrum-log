@@ -6,9 +6,7 @@ describe Spektrum::Log::Reader do
 
     subject { Spektrum::Log::Reader.new(tlm_file('1.TLM')) }
 
-    it { should have(1466).records }
-
-    its(:duration) { should eql(26570) }
+    it { should have(3).flights }
 
   end
 
@@ -16,9 +14,7 @@ describe Spektrum::Log::Reader do
 
     subject { Spektrum::Log::Reader.new(tlm_file('2.TLM')) }
 
-    it { should have(321106).records }
-
-    its(:duration) { should eql(277097) }
+    it { should have(312).flights }
 
   end
 
@@ -26,9 +22,15 @@ describe Spektrum::Log::Reader do
 
     subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')) }
 
-    it { should have(23155).records }
+    it { should have(12).flights }
 
-    its(:duration) { should eql(148365) }
+  end
+
+  context 'data file 4.TLM' do
+
+    subject { Spektrum::Log::Reader.new(tlm_file('4.TLM')) }
+
+    it { should have(1).flights }
 
   end
 
