@@ -6,6 +6,7 @@ Research:
 
 * http://www.rcgroups.com/forums/showthread.php?t=1726960
 * http://www.rcgroups.com/forums/showthread.php?t=1725173
+* http://www.rcgroups.com/forums/showthread.php?t=1725173&page=6#86 -- more refinement
 
 ## Installation
 
