@@ -16,6 +16,8 @@ describe Spektrum::Log::Flight do
 
       its(:duration) { should eql(1148) }
 
+      its(:bind_type) { should eql('DSMX') }
+
       its(:model_name) { should eql('Stinson') }
 
       its(:model_number) { should eql(1) }
@@ -215,6 +217,8 @@ describe Spektrum::Log::Flight do
       it { should_not be_empty }
 
       its(:duration) { should eql(16325) }
+
+      its(:bind_type) { should eql('DSMX') }
 
       its(:model_name) { should eql('Goblin 700') }
 

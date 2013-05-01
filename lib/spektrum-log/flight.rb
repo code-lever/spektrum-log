@@ -18,6 +18,17 @@ module Spektrum
         @records.empty?
       end
 
+      def bind_type
+        case @headers.first.raw_data[2].unpack('C')[0]
+        when 0x01..0x02
+          'DSM2'
+        when 0x03..0x04
+          'DSMX'
+        else
+          'Unknown'
+        end
+      end
+
       def model_name
         @headers.first.raw_data[8,18].unpack('Z*')[0]
       end
