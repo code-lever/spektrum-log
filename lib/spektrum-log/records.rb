@@ -12,7 +12,7 @@ module Spektrum
 
     end
 
-    class Record7E < Record
+    class VoltsTemperatureRPMRecord < Record
 
       def initialize time, raw_data
         super time, raw_data
@@ -35,13 +35,13 @@ module Spektrum
 
     end
 
-    class Record7F < Record
+    class FlightLogRecord < Record
 
       def initialize time, raw_data
         super time, raw_data
       end
 
-      def voltage
+      def receiver_voltage
         volt = @raw_data[13,14].unpack('n')[0]
         volt / 100.0
       end
@@ -55,10 +55,10 @@ module Spektrum
           0x16 => Record,
           0x17 => Record,
           0x18 => Record,
-          0x7E => Record7E, # TM1000
-          0x7F => Record7F, # TM1000
-          0xFE => Record7E, # TM1100
-          0xFF => Record7F, # TM1100
+          0x7E => VoltsTemperatureRPMRecord, # TM1000
+          0x7F => FlightLogRecord,           # TM1000
+          0xFE => VoltsTemperatureRPMRecord, # TM1100
+          0xFF => FlightLogRecord,           # TM1100
       }
 
       def self.create type, time, raw_data

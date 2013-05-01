@@ -4,19 +4,31 @@ describe Spektrum::Log::Flight do
 
   context 'data file 1.TLM' do
 
+    let(:reader) { Spektrum::Log::Reader.new(tlm_file('1.TLM')) }
+
     context 'flight 1' do
 
-      subject { Spektrum::Log::Reader.new(tlm_file('1.TLM')).flights[0] }
+      subject { reader.flights[0] }
+
+      it { should have(4).headers }
 
       it { should have(191).records }
 
       its(:duration) { should eql(1148) }
 
+      its(:model_name) { should eql('Stinson') }
+
+      its(:model_number) { should eql(1) }
+
+      its(:model_type) { should eql('Fixed Wing') }
+
     end
 
     context 'flight 2' do
 
-      subject { Spektrum::Log::Reader.new(tlm_file('1.TLM')).flights[1] }
+      subject { reader.flights[1] }
+
+      it { should have(4).headers }
 
       it { should have(634).records }
 
@@ -26,7 +38,9 @@ describe Spektrum::Log::Flight do
 
     context 'flight 3' do
 
-      subject { Spektrum::Log::Reader.new(tlm_file('1.TLM')).flights[2] }
+      subject { reader.flights[2] }
+
+      it { should have(4).headers }
 
       it { should have(641).records }
 
@@ -38,9 +52,13 @@ describe Spektrum::Log::Flight do
 
   context 'data file 2.TLM' do
 
+    let(:reader) { Spektrum::Log::Reader.new(tlm_file('2.TLM')) }
+
     context 'flight 1' do
 
-      subject { Spektrum::Log::Reader.new(tlm_file('2.TLM')).flights[0] }
+      subject { reader.flights[0] }
+
+      it { should have(5).headers }
 
       it { should have(260).records }
 
@@ -52,9 +70,13 @@ describe Spektrum::Log::Flight do
 
   context 'data file 3.TLM' do
 
+    let(:reader) { Spektrum::Log::Reader.new(tlm_file('3.TLM')) }
+
     context 'flight 1' do
 
-      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[0] }
+      subject { reader.flights[0] }
+
+      it { should have(5).headers }
 
       it { should have(0).records }
 
@@ -66,7 +88,9 @@ describe Spektrum::Log::Flight do
 
     context 'flight 2' do
 
-      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[1] }
+      subject { reader.flights[1] }
+
+      it { should have(5).headers }
 
       it { should have(0).records }
 
@@ -78,7 +102,9 @@ describe Spektrum::Log::Flight do
 
     context 'flight 3' do
 
-      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[2] }
+      subject { reader.flights[2] }
+
+      it { should have(5).headers }
 
       it { should have(0).records }
 
@@ -90,7 +116,9 @@ describe Spektrum::Log::Flight do
 
     context 'flight 4' do
 
-      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[3] }
+      subject { reader.flights[3] }
+
+      it { should have(5).headers }
 
       it { should have(0).records }
 
@@ -102,7 +130,9 @@ describe Spektrum::Log::Flight do
 
     context 'flight 5' do
 
-      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[4] }
+      subject { reader.flights[4] }
+
+      it { should have(5).headers }
 
       it { should have(0).records }
 
@@ -114,7 +144,9 @@ describe Spektrum::Log::Flight do
 
     context 'flight 6' do
 
-      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[5] }
+      subject { reader.flights[5] }
+
+      it { should have(5).headers }
 
       it { should have(0).records }
 
@@ -126,7 +158,9 @@ describe Spektrum::Log::Flight do
 
     context 'flight 7' do
 
-      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[6] }
+      subject { reader.flights[6] }
+
+      it { should have(5).headers }
 
       it { should have(0).records }
 
@@ -138,7 +172,9 @@ describe Spektrum::Log::Flight do
 
     context 'flight 8' do
 
-      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[7] }
+      subject { reader.flights[7] }
+
+      it { should have(5).headers }
 
       it { should have(0).records }
 
@@ -150,7 +186,9 @@ describe Spektrum::Log::Flight do
 
     context 'flight 9' do
 
-      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[8] }
+      subject { reader.flights[8] }
+
+      it { should have(5).headers }
 
       it { should have(23155).records }
 
@@ -164,15 +202,25 @@ describe Spektrum::Log::Flight do
 
   context 'data file 4.TLM' do
 
+    let(:reader) { Spektrum::Log::Reader.new(tlm_file('4.TLM')) }
+
     context 'flight 1' do
 
-      subject { Spektrum::Log::Reader.new(tlm_file('4.TLM')).flights[0] }
+      subject { reader.flights[0] }
+
+      it { should have(5).headers }
 
       it { should have(5440).records }
 
+      it { should_not be_empty }
+
       its(:duration) { should eql(16325) }
 
-      it { should_not be_empty }
+      its(:model_name) { should eql('Goblin 700') }
+
+      its(:model_number) { should eql(5) }
+
+      its(:model_type) { should eql('Helicopter') }
 
     end
 
