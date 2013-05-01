@@ -16,7 +16,7 @@ module Spektrum
               break
             end
 
-            first = first4.unpack('L')[0]
+            first = first4.unpack('V')[0]
             if 0xFFFFFFFF == first
               rest = file.read(32)
               @headers << Headers.create(rest)
@@ -32,10 +32,6 @@ module Spektrum
 
       def duration
         @records.last.time - @records.first.time
-      end
-
-      def record_count
-        @records.length
       end
 
     end

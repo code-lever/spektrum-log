@@ -4,7 +4,6 @@ module Spektrum
     class Headers
 
       def self.create data
-        nil
       end
 
     end
