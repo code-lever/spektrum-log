@@ -64,6 +64,102 @@ describe Spektrum::Log::Flight do
 
     end
 
+    context 'flight 2' do
+
+      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[1] }
+
+      it { should have(0).records }
+
+      its(:duration) { should eql(0) }
+
+      it { should be_empty }
+
+    end
+
+    context 'flight 3' do
+
+      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[2] }
+
+      it { should have(0).records }
+
+      its(:duration) { should eql(0) }
+
+      it { should be_empty }
+
+    end
+
+    context 'flight 4' do
+
+      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[3] }
+
+      it { should have(0).records }
+
+      its(:duration) { should eql(0) }
+
+      it { should be_empty }
+
+    end
+
+    context 'flight 5' do
+
+      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[4] }
+
+      it { should have(0).records }
+
+      its(:duration) { should eql(0) }
+
+      it { should be_empty }
+
+    end
+
+    context 'flight 6' do
+
+      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[5] }
+
+      it { should have(0).records }
+
+      its(:duration) { should eql(0) }
+
+      it { should be_empty }
+
+    end
+
+    context 'flight 7' do
+
+      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[6] }
+
+      it { should have(0).records }
+
+      its(:duration) { should eql(0) }
+
+      it { should be_empty }
+
+    end
+
+    context 'flight 8' do
+
+      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[7] }
+
+      it { should have(0).records }
+
+      its(:duration) { should eql(0) }
+
+      it { should be_empty }
+
+    end
+
+    context 'flight 9' do
+
+      subject { Spektrum::Log::Reader.new(tlm_file('3.TLM')).flights[8] }
+
+      it { should have(23155).records }
+
+      its(:duration) { should eql(148365) }
+
+      it { should_not be_empty }
+
+    end
+
   end
 
   context 'data file 4.TLM' do
