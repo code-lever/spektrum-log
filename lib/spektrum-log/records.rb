@@ -96,9 +96,19 @@ module Spektrum
         super timestamp, raw_data
       end
 
-      def receiver_voltage
+      def rx_voltage
+        raw_rx_voltage / 100.0
+      end
+
+      def rx_voltage?
+        raw_rx_voltage != 0x7FFF
+      end
+
+      private
+
+      def raw_rx_voltage
         volt = two_byte_field(13..14)
-        volt / 100.0
+        volt
       end
 
     end
