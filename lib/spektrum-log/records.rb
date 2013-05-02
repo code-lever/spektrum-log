@@ -6,6 +6,9 @@ module Spektrum
       attr_reader :timestamp
 
       def initialize timestamp, raw_data
+        if raw_data.length != 15
+          raise ArgumentError, "raw_data incorrectly sized (#{raw_data.length})"
+        end
         @timestamp = timestamp
         @raw_data = raw_data
       end
@@ -38,6 +41,51 @@ module Spektrum
 
       def altitude
         two_byte_field(1..2)
+      end
+
+    end
+
+    class BasicDataRecord < Record
+
+      def initialize timestamp, raw_data
+        super timestamp, raw_data
+      end
+
+      def rpm pole_count
+        raw_rpm * pole_count
+      end
+
+      def rpm?
+        raw_rpm != 0xFFFF
+      end
+
+      def voltage
+        raw_voltage / 100.0
+      end
+
+      def voltage?
+        raw_voltage != 0xFFFF
+      end
+
+      def temperature
+        temp = two_byte_field(5..6)
+        temp
+      end
+
+      def temperature?
+        self.temperature != 0x7FFF
+      end
+
+      private
+
+      def raw_rpm
+        rpm = two_byte_field(1..2)
+        rpm
+      end
+
+      def raw_voltage
+        volt = two_byte_field(3..4)
+        volt
       end
 
     end
@@ -184,29 +232,6 @@ module Spektrum
 
     end
 
-    class VoltsTemperatureRPMRecord < Record
-
-      def initialize timestamp, raw_data
-        super timestamp, raw_data
-      end
-
-      def rpms pole_count
-        rpm = two_byte_field(1..2)
-        rpm * pole_count
-      end
-
-      def voltage
-        volt = two_byte_field(3..4)
-        volt / 100.0
-      end
-
-      def temperature
-        temp = two_byte_field(5..6)
-        temp
-      end
-
-    end
-
     class Records
 
       @@types = {
@@ -215,9 +240,9 @@ module Spektrum
           0x14 => GForceRecord,
           0x16 => GPSRecord1,
           0x17 => GPSRecord2,
-          0x7E => VoltsTemperatureRPMRecord,
+          0x7E => BasicDataRecord,
           0x7F => FlightLogRecord,
-          0xFE => VoltsTemperatureRPMRecord,
+          0xFE => BasicDataRecord,
           0xFF => FlightLogRecord,
       }
 
