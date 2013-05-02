@@ -16,4 +16,5 @@ Gem::Specification.new do |gem|
   gem.version       = Spektrum::Log::VERSION
 
   gem.add_development_dependency 'rspec', '~> 2.12'
+  gem.add_development_dependency 'rake', '~> 10.0'
 end
