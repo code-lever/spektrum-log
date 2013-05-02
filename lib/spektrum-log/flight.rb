@@ -11,7 +11,7 @@ module Spektrum
       end
 
       def duration
-        @records.empty? ? 0 : @records.last.time - @records.first.time
+        @records.empty? ? 0 : @records.last.timestamp - @records.first.timestamp
       end
 
       def empty?

@@ -3,25 +3,37 @@ module Spektrum
 
     class Record
 
-      attr_reader :time
+      attr_reader :timestamp
 
-      def initialize time, raw_data
-        @time = time
+      def initialize timestamp, raw_data
+        @timestamp = timestamp
         @raw_data = raw_data
       end
 
       protected
 
-      def two_byte_field range
-        @raw_data[range].unpack('n')[0]
+      def byte_field range
+        @raw_data[range].unpack('C')[0]
+      end
+
+      def hex_byte_field range
+        @raw_data[range].unpack('H*')[0].to_i
+      end
+
+      def two_byte_field range, endian = :big
+        @raw_data[range].unpack(endian == :big ? 'n' : 'v')[0]
+      end
+
+      def four_byte_field range, endian = :big
+        @raw_data[range].unpack(endian == :big ? 'N' : 'V')[0]
       end
 
     end
 
     class AltimeterRecord < Record
 
-      def initialize time, raw_data
-        super time, raw_data
+      def initialize timestamp, raw_data
+        super timestamp, raw_data
       end
 
       def altitude
@@ -32,8 +44,8 @@ module Spektrum
 
     class FlightLogRecord < Record
 
-      def initialize time, raw_data
-        super time, raw_data
+      def initialize timestamp, raw_data
+        super timestamp, raw_data
       end
 
       def receiver_voltage
@@ -45,8 +57,8 @@ module Spektrum
 
     class GForceRecord < Record
 
-      def initialize time, raw_data
-        super time, raw_data
+      def initialize timestamp, raw_data
+        super timestamp, raw_data
       end
 
       def x
@@ -83,32 +95,86 @@ module Spektrum
 
     class GPSRecord1 < Record
 
-      def initialize time, raw_data
-        super time, raw_data
+      def initialize timestamp, raw_data
+        super timestamp, raw_data
+      end
+
+      def altitude
+        alt = two_byte_field(1..2, :little)
+        alt
+      end
+
+      def latitude
+        a = byte_field(3) # 1/100 degree-second
+        b = byte_field(4) # degree-seconds
+        c = byte_field(5) # degree-minutes
+        d = byte_field(6) # degrees
+        [d, c, b, a]
+      end
+
+      def longitude
+        a = byte_field(7) # 1/100 degree-second
+        b = byte_field(8) # degree-seconds
+        c = byte_field(9) # degree-minutes
+        d = byte_field(10) # degrees
+        [d, c, b, a]
+      end
+
+      def heading
+        head = two_byte_field(11..12, :little)
+        head / 10.0
       end
 
     end
 
     class GPSRecord2 < Record
 
-      def initialize time, raw_data
-        super time, raw_data
+      def initialize timestamp, raw_data
+        super timestamp, raw_data
+      end
+
+      # :knots, :mph, :kph
+      def speed unit = :knots
+        speed = two_byte_field(1..2, :little)
+        speed = case unit
+        when :knots
+          speed / 10.0
+        when :mph
+          speed * 0.115
+        when :kph
+          speed * 0.185
+        end
+        speed.round(2)
+      end
+
+      def time
+        ax = hex_byte_field(3) # hundredths
+        bx = hex_byte_field(4) # seconds
+        cx = hex_byte_field(5) # minutes
+        dx = hex_byte_field(6) # hours
+
+        [dx, cx, bx + (ax / 100.0)] # hh:mm:ss.sss
+      end
+
+      def sats
+        sats = byte_field(7)
+        sats
       end
 
     end
 
     class MysteryRecord < Record
 
-      def initialize time, raw_data
-        super time, raw_data
+      def initialize timestamp, raw_data
+        super timestamp, raw_data
       end
 
     end
 
     class SpeedRecord < Record
 
-      def initialize time, raw_data
-        super time, raw_data
+      def initialize timestamp, raw_data
+        super timestamp, raw_data
       end
 
       def speed
@@ -120,8 +186,8 @@ module Spektrum
 
     class VoltsTemperatureRPMRecord < Record
 
-      def initialize time, raw_data
-        super time, raw_data
+      def initialize timestamp, raw_data
+        super timestamp, raw_data
       end
 
       def rpms pole_count
@@ -155,8 +221,8 @@ module Spektrum
           0xFF => FlightLogRecord,
       }
 
-      def self.create type, time, raw_data
-        @@types.fetch(type, MysteryRecord).new(time, raw_data)
+      def self.create type, timestamp, raw_data
+        @@types.fetch(type, MysteryRecord).new(timestamp, raw_data)
       end
 
     end
