@@ -10,12 +10,22 @@ module Spektrum
         @raw_data = raw_data
       end
 
+      protected
+
+      def two_byte_field range
+        @raw_data[range].unpack('n')[0]
+      end
+
     end
 
     class AltimeterRecord < Record
 
       def initialize time, raw_data
         super time, raw_data
+      end
+
+      def altitude
+        two_byte_field(1..2)
       end
 
     end
@@ -27,7 +37,7 @@ module Spektrum
       end
 
       def receiver_voltage
-        volt = @raw_data[13..14].unpack('n')[0]
+        volt = two_byte_field(13..14)
         volt / 100.0
       end
 
@@ -37,6 +47,36 @@ module Spektrum
 
       def initialize time, raw_data
         super time, raw_data
+      end
+
+      def x
+        x = two_byte_field(1..2)
+        x
+      end
+
+      def y
+        y = two_byte_field(3..4)
+        y
+      end
+
+      def z
+        z = two_byte_field(5..6)
+        z
+      end
+
+      def x_max
+        x = two_byte_field(7..8)
+        x
+      end
+
+      def y_max
+        y = two_byte_field(9..10)
+        y
+      end
+
+      def z_max
+        z = two_byte_field(11..12)
+        z
       end
 
     end
@@ -71,6 +111,11 @@ module Spektrum
         super time, raw_data
       end
 
+      def speed
+        speed = two_byte_field(1..2)
+        speed
+      end
+
     end
 
     class VoltsTemperatureRPMRecord < Record
@@ -80,17 +125,17 @@ module Spektrum
       end
 
       def rpms pole_count
-        rpm = @raw_data[1..2].unpack('n')[0]
+        rpm = two_byte_field(1..2)
         rpm * pole_count
       end
 
       def voltage
-        volt = @raw_data[3..4].unpack('n')[0]
+        volt = two_byte_field(3..4)
         volt / 100.0
       end
 
       def temperature
-        temp = @raw_data[5..6].unpack('n')[0]
+        temp = two_byte_field(5..6)
         temp
       end
 
@@ -104,10 +149,10 @@ module Spektrum
           0x14 => GForceRecord,
           0x16 => GPSRecord1,
           0x17 => GPSRecord2,
-          0x7E => VoltsTemperatureRPMRecord, # TM1000
-          0x7F => FlightLogRecord,           # TM1000
-          0xFE => VoltsTemperatureRPMRecord, # TM1100
-          0xFF => FlightLogRecord,           # TM1100
+          0x7E => VoltsTemperatureRPMRecord,
+          0x7F => FlightLogRecord,
+          0xFE => VoltsTemperatureRPMRecord,
+          0xFF => FlightLogRecord,
       }
 
       def self.create type, time, raw_data
