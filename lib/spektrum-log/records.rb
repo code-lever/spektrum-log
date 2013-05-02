@@ -12,6 +12,67 @@ module Spektrum
 
     end
 
+    class AltimeterRecord < Record
+
+      def initialize time, raw_data
+        super time, raw_data
+      end
+
+    end
+
+    class FlightLogRecord < Record
+
+      def initialize time, raw_data
+        super time, raw_data
+      end
+
+      def receiver_voltage
+        volt = @raw_data[13..14].unpack('n')[0]
+        volt / 100.0
+      end
+
+    end
+
+    class GForceRecord < Record
+
+      def initialize time, raw_data
+        super time, raw_data
+      end
+
+    end
+
+    class GPSRecord1 < Record
+
+      def initialize time, raw_data
+        super time, raw_data
+      end
+
+    end
+
+    class GPSRecord2 < Record
+
+      def initialize time, raw_data
+        super time, raw_data
+      end
+
+    end
+
+    class MysteryRecord < Record
+
+      def initialize time, raw_data
+        super time, raw_data
+      end
+
+    end
+
+    class SpeedRecord < Record
+
+      def initialize time, raw_data
+        super time, raw_data
+      end
+
+    end
+
     class VoltsTemperatureRPMRecord < Record
 
       def initialize time, raw_data
@@ -35,26 +96,14 @@ module Spektrum
 
     end
 
-    class FlightLogRecord < Record
-
-      def initialize time, raw_data
-        super time, raw_data
-      end
-
-      def receiver_voltage
-        volt = @raw_data[13..14].unpack('n')[0]
-        volt / 100.0
-      end
-
-    end
-
     class Records
 
       @@types = {
-          0x00 => Record,
-          0x16 => Record,
-          0x17 => Record,
-          0x18 => Record,
+          0x11 => SpeedRecord,
+          0x12 => AltimeterRecord,
+          0x14 => GForceRecord,
+          0x16 => GPSRecord1,
+          0x17 => GPSRecord2,
           0x7E => VoltsTemperatureRPMRecord, # TM1000
           0x7F => FlightLogRecord,           # TM1000
           0xFE => VoltsTemperatureRPMRecord, # TM1100
@@ -62,11 +111,7 @@ module Spektrum
       }
 
       def self.create type, time, raw_data
-        if @@types.has_key? type
-          @@types[type].new(time, raw_data)
-        else
-          puts type
-        end
+        @@types.fetch(type, MysteryRecord).new(time, raw_data)
       end
 
     end
