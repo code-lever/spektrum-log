@@ -54,4 +54,24 @@ describe Spektrum::Log::BasicDataRecord do
 
   end
 
+  context 'with everything' do
+
+    let(:raw_data) { ["0000A6138900A60000000000000000"].pack('H*') }
+
+    its(:rpm?) { should be_true }
+
+    it 'calculates RPMs appropriately' do
+      subject.rpm(12).should eq(1992)
+    end
+
+    its(:temperature?) { should be_true }
+
+    its(:temperature) { should eq(166) }
+
+    its(:voltage?) { should be_true }
+
+    its(:voltage) { should eq(50.01) }
+
+  end
+
 end
