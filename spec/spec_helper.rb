@@ -12,6 +12,6 @@ RSpec.configure do |config|
   config.order = 'random'
 end
 
-def tlm_file(name)
-  "#{File.dirname(__FILE__)}/#{name}"
+def data_file(name)
+  "#{File.dirname(__FILE__)}/../data/#{name}"
 end

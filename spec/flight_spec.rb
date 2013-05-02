@@ -4,7 +4,7 @@ describe Spektrum::Log::Flight do
 
   context 'data file 1.TLM' do
 
-    let(:reader) { Spektrum::Log::Reader.new(tlm_file('1.TLM')) }
+    let(:reader) { Spektrum::Log::Reader.new(data_file('1.TLM')) }
 
     context 'flight 1' do
 
@@ -54,7 +54,7 @@ describe Spektrum::Log::Flight do
 
   context 'data file 2.TLM' do
 
-    let(:reader) { Spektrum::Log::Reader.new(tlm_file('2.TLM')) }
+    let(:reader) { Spektrum::Log::Reader.new(data_file('2.TLM')) }
 
     context 'flight 1' do
 
@@ -72,7 +72,7 @@ describe Spektrum::Log::Flight do
 
   context 'data file 3.TLM' do
 
-    let(:reader) { Spektrum::Log::Reader.new(tlm_file('3.TLM')) }
+    let(:reader) { Spektrum::Log::Reader.new(data_file('3.TLM')) }
 
     context 'flight 1' do
 
@@ -204,7 +204,7 @@ describe Spektrum::Log::Flight do
 
   context 'data file 4.TLM' do
 
-    let(:reader) { Spektrum::Log::Reader.new(tlm_file('4.TLM')) }
+    let(:reader) { Spektrum::Log::Reader.new(data_file('4.TLM')) }
 
     context 'flight 1' do
 
