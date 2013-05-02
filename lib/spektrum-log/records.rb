@@ -19,17 +19,17 @@ module Spektrum
       end
 
       def rpms pole_count
-        rpm = @raw_data[1,2].unpack('n')[0]
+        rpm = @raw_data[1..2].unpack('n')[0]
         rpm * pole_count
       end
 
       def voltage
-        volt = @raw_data[3,4].unpack('n')[0]
+        volt = @raw_data[3..4].unpack('n')[0]
         volt / 100.0
       end
 
       def temperature
-        temp = @raw_data[5,6].unpack('n')[0]
+        temp = @raw_data[5..6].unpack('n')[0]
         temp
       end
 
@@ -42,7 +42,7 @@ module Spektrum
       end
 
       def receiver_voltage
-        volt = @raw_data[13,14].unpack('n')[0]
+        volt = @raw_data[13..14].unpack('n')[0]
         volt / 100.0
       end
 

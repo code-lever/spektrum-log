@@ -30,7 +30,7 @@ module Spektrum
       end
 
       def model_name
-        @headers.first.raw_data[8,18].unpack('Z*')[0]
+        @headers.first.raw_data[8..18].unpack('Z*')[0]
       end
 
       def model_number
