@@ -1,3 +1,4 @@
+require 'pathname'
 require 'spektrum-log'
 
 RSpec.configure do |config|
@@ -13,5 +14,6 @@ RSpec.configure do |config|
 end
 
 def data_file(name)
-  "#{File.dirname(__FILE__)}/../data/#{name}"
+  path = Pathname.new("#{File.dirname(__FILE__)}/../data/#{name}")
+  path.realpath
 end

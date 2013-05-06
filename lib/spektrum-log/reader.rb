@@ -1,3 +1,5 @@
+require 'open-uri'
+
 module Spektrum
   module Log
 
@@ -5,13 +7,13 @@ module Spektrum
 
       attr_reader :records, :flights
 
-      def initialize filename
+      def initialize uri
         headers = []
         headers_complete = false
         records = []
         @flights = []
 
-        File.open(filename, 'rb') do |file|
+        open(uri, 'rb') do |file|
           loop do
             first4 = file.read(4)
             if first4.nil?
