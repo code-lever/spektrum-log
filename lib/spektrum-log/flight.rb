@@ -11,7 +11,7 @@ module Spektrum
       end
 
       def duration
-        @records.empty? ? 0 : @records.last.timestamp - @records.first.timestamp
+        @duration ||= ((@records.empty? ? 0 : @records.last.timestamp - @records.first.timestamp) / 256)
       end
 
       def empty?
@@ -30,7 +30,7 @@ module Spektrum
       end
 
       def model_name
-        @headers.first.raw_data[8..18].unpack('Z*')[0]
+        @model_name ||= @headers.first.raw_data[8..18].unpack('Z*')[0].strip
       end
 
       def model_number

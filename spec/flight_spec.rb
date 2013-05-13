@@ -14,7 +14,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(191).records }
 
-      its(:duration) { should eql(1148) }
+      its(:duration) { should eql(4) }
 
       its(:bind_type) { should eql('DSMX') }
 
@@ -34,7 +34,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(634).records }
 
-      its(:duration) { should eql(3798) }
+      its(:duration) { should eql(14) }
 
     end
 
@@ -46,7 +46,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(641).records }
 
-      its(:duration) { should eql(3842) }
+      its(:duration) { should eql(15) }
 
     end
 
@@ -64,7 +64,17 @@ describe Spektrum::Log::Flight do
 
       it { should have(260).records }
 
-      its(:duration) { should eql(570) }
+      it { should_not be_empty }
+
+      its(:duration) { should eql(2) }
+
+      its(:bind_type) { should eql('DSMX') }
+
+      its(:model_name) { should eql('Voodoo 600') }
+
+      its(:model_number) { should eql(1) }
+
+      its(:model_type) { should eql('Helicopter') }
 
     end
 
@@ -194,7 +204,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(23155).records }
 
-      its(:duration) { should eql(148365) }
+      its(:duration) { should eql(579) }
 
       it { should_not be_empty }
 
@@ -216,7 +226,7 @@ describe Spektrum::Log::Flight do
 
       it { should_not be_empty }
 
-      its(:duration) { should eql(16325) }
+      its(:duration) { should eql(63) }
 
       its(:bind_type) { should eql('DSMX') }
 
