@@ -19,14 +19,14 @@ module Spektrum
       end
 
       def bind_type
-        case @headers.first.raw_data[2].unpack('C')[0]
-        when 0x01..0x02
-          'DSM2'
-        when 0x03..0x04
-          'DSMX'
-        else
-          'Unknown'
-        end
+        @bind_type ||= case @headers.first.raw_data[2].unpack('C')[0]
+                       when 0x01..0x02
+                         'DSM2'
+                       when 0x03..0x04
+                         'DSMX'
+                       else
+                         'Unknown'
+                       end
       end
 
       def model_name
@@ -34,18 +34,18 @@ module Spektrum
       end
 
       def model_number
-        @headers.first.raw_data[0].unpack('C')[0] + 1
+        @model_number ||= (@headers.first.raw_data[0].unpack('C')[0] + 1)
       end
 
       def model_type
-        case @headers.first.raw_data[1].unpack('C')[0]
-        when 0x00
-          'Fixed Wing'
-        when 0x01
-          'Helicopter'
-        else
-          'Unknown'
-        end
+        @model_type ||= case @headers.first.raw_data[1].unpack('C')[0]
+                        when 0x00
+                          'Fixed Wing'
+                        when 0x01
+                          'Helicopter'
+                        else
+                          'Unknown'
+                        end
       end
 
     end

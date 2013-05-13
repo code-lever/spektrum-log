@@ -40,7 +40,7 @@ module Spektrum
       end
 
       def altitude
-        two_byte_field(1..2)
+        @altitude ||= two_byte_field(1..2)
       end
 
     end
@@ -68,8 +68,7 @@ module Spektrum
       end
 
       def temperature
-        temp = two_byte_field(5..6)
-        temp
+        @temperature ||= two_byte_field(5..6)
       end
 
       def temperature?
@@ -79,13 +78,11 @@ module Spektrum
       private
 
       def raw_rpm
-        rpm = two_byte_field(1..2)
-        rpm
+        @raw_rpm ||= two_byte_field(1..2)
       end
 
       def raw_voltage
-        volt = two_byte_field(3..4)
-        volt
+        @raw_voltage ||= two_byte_field(3..4)
       end
 
     end
@@ -107,8 +104,7 @@ module Spektrum
       private
 
       def raw_rx_voltage
-        volt = two_byte_field(13..14)
-        volt
+        @raw_rx_voltage ||= two_byte_field(13..14)
       end
 
     end
@@ -120,33 +116,27 @@ module Spektrum
       end
 
       def x
-        x = two_byte_field(1..2)
-        x
+        @x ||= two_byte_field(1..2)
       end
 
       def y
-        y = two_byte_field(3..4)
-        y
+        @y ||= two_byte_field(3..4)
       end
 
       def z
-        z = two_byte_field(5..6)
-        z
+        @z ||= two_byte_field(5..6)
       end
 
       def x_max
-        x = two_byte_field(7..8)
-        x
+        @x_max ||= two_byte_field(7..8)
       end
 
       def y_max
-        y = two_byte_field(9..10)
-        y
+        @y_max ||= two_byte_field(9..10)
       end
 
       def z_max
-        z = two_byte_field(11..12)
-        z
+        @z_max ||= two_byte_field(11..12)
       end
 
     end
@@ -158,8 +148,7 @@ module Spektrum
       end
 
       def altitude
-        alt = two_byte_field(1..2, :little)
-        alt
+        @altitude ||= two_byte_field(1..2, :little)
       end
 
       def latitude
@@ -179,8 +168,7 @@ module Spektrum
       end
 
       def heading
-        head = two_byte_field(11..12, :little)
-        head / 10.0
+        @heading ||= (two_byte_field(11..12, :little) / 10.0)
       end
 
     end
@@ -215,8 +203,7 @@ module Spektrum
       end
 
       def sats
-        sats = byte_field(7)
-        sats
+        @sats ||= byte_field(7)
       end
 
     end
@@ -236,8 +223,7 @@ module Spektrum
       end
 
       def speed
-        speed = two_byte_field(1..2)
-        speed
+        @speed ||= two_byte_field(1..2)
       end
 
     end
