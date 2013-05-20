@@ -10,6 +10,14 @@ module Spektrum
         @records = records
       end
 
+      def reports
+
+      end
+
+      def report(type)
+
+      end
+
       def duration
         @duration ||= ((@records.empty? ? 0 : @records.last.timestamp - @records.first.timestamp) / 256)
       end
