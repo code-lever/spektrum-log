@@ -236,6 +236,10 @@ describe Spektrum::Log::Flight do
 
       its(:model_type) { should eql('Helicopter') }
 
+      its(:altimeter_records?) { should be_false }
+
+      its(:basic_data_records?) { should be_true }
+
     end
 
   end

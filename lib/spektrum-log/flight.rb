@@ -10,14 +10,6 @@ module Spektrum
         @records = records
       end
 
-      def reports
-
-      end
-
-      def report(type)
-
-      end
-
       def duration
         @duration ||= ((@records.empty? ? 0 : @records.last.timestamp - @records.first.timestamp) / 256)
       end
@@ -54,6 +46,32 @@ module Spektrum
                         else
                           'Unknown'
                         end
+      end
+
+      def altimeter_records?
+        any_records? AltimeterRecord
+      end
+
+      def altimeter_records
+        collect_records AltimeterRecord
+      end
+
+      def basic_data_records?
+        any_records? BasicDataRecord
+      end
+
+      def basic_data_records
+        collect_records BasicDataRecord
+      end
+
+      private
+
+      def any_records?(type)
+        @records.any? { |rec| rec.is_a? type }
+      end
+
+      def collect_records(type)
+        @records.find_all { |rec| rec.is_a? type }
       end
 
     end
