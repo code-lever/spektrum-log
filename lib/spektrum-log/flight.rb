@@ -1,23 +1,39 @@
 module Spektrum
   module Log
 
+    # Represents a single recorded flight.  Contains information about the model
+    # flown, duration of the flight, and all data records contained within.
     class Flight
 
       attr_reader :headers, :records
 
+      # Creates a new flight.
+      #
+      # @param headers [Array] array of Header objects read from the file
+      # @param records [Array] array of Record objects read from the file
       def initialize(headers, records)
         @headers = headers
         @records = records
       end
 
+      # Gets the duration of the flight, in seconds.
+      #
+      # @return [Fixnum] duration of the flight, in seconds
       def duration
         @duration ||= ((@records.empty? ? 0 : @records.last.timestamp - @records.first.timestamp) / 256)
       end
 
+      # Determines if this flight has any data.  Models without telemetry
+      # transmitted, but with logging enabled will create empty flights.
+      #
+      # @return [Boolean] true if the flight has no records, false otherwise
       def empty?
         @records.empty?
       end
 
+      # Gets the binding type the flight was flown with.
+      #
+      # @return [String] binding type of the flight, `DSM2`, `DSMX`, etc.
       def bind_type
         @bind_type ||= case @headers.first.raw_data[2].unpack('C')[0]
                        when 0x01..0x02
@@ -29,14 +45,23 @@ module Spektrum
                        end
       end
 
+      # Gets the name of the model for this flight.
+      #
+      # @return [String] model name
       def model_name
         @model_name ||= @headers.first.raw_data[8..18].unpack('Z*')[0].strip
       end
 
+      # Gets the model's index from the transmitter.
+      #
+      # @return [Fixnum] model number
       def model_number
         @model_number ||= (@headers.first.raw_data[0].unpack('C')[0] + 1)
       end
 
+      # Gets the type of model flown.
+      #
+      # @return [String] model type
       def model_type
         @model_type ||= case @headers.first.raw_data[1].unpack('C')[0]
                         when 0x00
@@ -106,6 +131,10 @@ module Spektrum
 
       private
 
+      # Determines if there are any records in this flight of the given type.
+      #
+      # @param type [Class] type of record to check for
+      # @return []
       def any_records?(type)
         @records.any? { |rec| rec.is_a? type }
       end

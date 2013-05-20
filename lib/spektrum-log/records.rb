@@ -1,6 +1,7 @@
 module Spektrum
   module Log
 
+    # Represents a single record from the telemetry file.
     class Record
 
       attr_reader :timestamp
@@ -93,10 +94,16 @@ module Spektrum
         super timestamp, raw_data
       end
 
+      # Gets the receiver pack voltage data.
+      #
+      # @return [Float] rx voltage data, in volts
       def rx_voltage
         raw_rx_voltage / 100.0
       end
 
+      # Determines if there is receiver voltage data contained within.
+      #
+      # @return [Boolean] true if there is rx voltage data, false otherwise
       def rx_voltage?
         raw_rx_voltage != 0x7FFF
       end
@@ -227,6 +234,7 @@ module Spektrum
       end
 
     end
+
 
     class Records
 
