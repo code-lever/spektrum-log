@@ -53,7 +53,7 @@ module Spektrum
       end
 
       def altimeter_records
-        collect_records AltimeterRecord
+        select_records AltimeterRecord
       end
 
       def basic_data_records?
@@ -61,7 +61,7 @@ module Spektrum
       end
 
       def basic_data_records
-        collect_records BasicDataRecord
+        select_records BasicDataRecord
       end
 
       def flight_log_records?
@@ -69,7 +69,7 @@ module Spektrum
       end
 
       def flight_log_records
-        collect_records FlightLogRecord
+        select_records FlightLogRecord
       end
 
       def g_force_records?
@@ -77,7 +77,7 @@ module Spektrum
       end
 
       def g_force_records
-        collect_records GForceRecord
+        select_records GForceRecord
       end
 
       def gps1_records?
@@ -85,7 +85,7 @@ module Spektrum
       end
 
       def gps1_records
-        collect_records GPSRecord1
+        select_records GPSRecord1
       end
 
       def gps2_records?
@@ -93,7 +93,7 @@ module Spektrum
       end
 
       def gps2_records
-        collect_records GPSRecord2
+        select_records GPSRecord2
       end
 
       def speed_records?
@@ -101,7 +101,7 @@ module Spektrum
       end
 
       def speed_records
-        collect_records SpeedRecord
+        select_records SpeedRecord
       end
 
       private
@@ -110,8 +110,8 @@ module Spektrum
         @records.any? { |rec| rec.is_a? type }
       end
 
-      def collect_records(type)
-        @records.find_all { |rec| rec.is_a? type }
+      def select_records(type)
+        @records.select { |rec| rec.is_a? type }
       end
 
     end
