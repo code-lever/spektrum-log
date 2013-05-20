@@ -64,6 +64,46 @@ module Spektrum
         collect_records BasicDataRecord
       end
 
+      def flight_log_records?
+        any_records? FlightLogRecord
+      end
+
+      def flight_log_records
+        collect_records FlightLogRecord
+      end
+
+      def g_force_records?
+        any_records? GForceRecord
+      end
+
+      def g_force_records
+        collect_records GForceRecord
+      end
+
+      def gps1_records?
+        any_records? GPSRecord1
+      end
+
+      def gps1_records
+        collect_records GPSRecord1
+      end
+
+      def gps2_records?
+        any_records? GPSRecord2
+      end
+
+      def gps2_records
+        collect_records GPSRecord2
+      end
+
+      def speed_records?
+        any_records? SpeedRecord
+      end
+
+      def speed_records
+        collect_records SpeedRecord
+      end
+
       private
 
       def any_records?(type)

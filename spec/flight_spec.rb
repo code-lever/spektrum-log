@@ -240,6 +240,16 @@ describe Spektrum::Log::Flight do
 
       its(:basic_data_records?) { should be_true }
 
+      its(:flight_log_records?) { should be_true }
+
+      its(:g_force_records?) { should be_false }
+
+      its(:gps1_records?) { should be_false }
+
+      its(:gps2_records?) { should be_false }
+
+      its(:speed_records?) { should be_false }
+
     end
 
   end
