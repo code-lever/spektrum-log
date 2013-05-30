@@ -9,8 +9,8 @@ module Spektrum
 
       # Creates a new flight.
       #
-      # @param headers [Array] array of Header objects read from the file
-      # @param records [Array] array of Record objects read from the file
+      # @param headers [Array<Header>] headers read from the file
+      # @param records [Array<Record>] records read from the file
       def initialize(headers, records)
         @headers = headers
         @records = records
