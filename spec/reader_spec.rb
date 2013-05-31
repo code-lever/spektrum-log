@@ -34,4 +34,8 @@ describe Spektrum::Log::Reader do
 
   end
 
+  it 'should raise on bad input' do
+    expect { Spektrum::Log::Reader.new(__FILE__) }.to raise_error
+  end
+
 end

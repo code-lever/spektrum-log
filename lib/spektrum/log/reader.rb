@@ -28,7 +28,6 @@ module Spektrum
 
             first = first4.unpack('V')[0]
             if 0xFFFFFFFF == first
-
               if headers_complete || !records.empty?
                 # we have records, this is a new entry
                 @flights << Flight.new(headers, records)
@@ -41,7 +40,6 @@ module Spektrum
               headers << Headers.create(rest)
 
               headers_complete = rest.unpack('S')[0] == 0x1717
-
             else
               type = file.read(1).unpack('C')[0]
               rest = file.read(15)
