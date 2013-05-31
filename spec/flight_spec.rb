@@ -14,7 +14,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(191).records }
 
-      its(:duration) { should eql(4) }
+      its(:duration) { should be_within(0.1).of(4.5) }
 
       its(:bind_type) { should eql('DSMX') }
 
@@ -34,7 +34,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(634).records }
 
-      its(:duration) { should eql(14) }
+      its(:duration) { should be_within(0.1).of(14.8) }
 
     end
 
@@ -46,7 +46,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(641).records }
 
-      its(:duration) { should eql(15) }
+      its(:duration) { should be_within(0.1).of(15.0) }
 
     end
 
@@ -66,7 +66,7 @@ describe Spektrum::Log::Flight do
 
       it { should_not be_empty }
 
-      its(:duration) { should eql(2) }
+      its(:duration) { should be_within(0.1).of(2.2) }
 
       its(:bind_type) { should eql('DSMX') }
 
@@ -92,7 +92,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(0).records }
 
-      its(:duration) { should eql(0) }
+      its(:duration) { should eql(0.0) }
 
       it { should be_empty }
 
@@ -106,7 +106,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(0).records }
 
-      its(:duration) { should eql(0) }
+      its(:duration) { should eql(0.0) }
 
       it { should be_empty }
 
@@ -120,7 +120,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(0).records }
 
-      its(:duration) { should eql(0) }
+      its(:duration) { should eql(0.0) }
 
       it { should be_empty }
 
@@ -134,7 +134,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(0).records }
 
-      its(:duration) { should eql(0) }
+      its(:duration) { should eql(0.0) }
 
       it { should be_empty }
 
@@ -148,7 +148,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(0).records }
 
-      its(:duration) { should eql(0) }
+      its(:duration) { should eql(0.0) }
 
       it { should be_empty }
 
@@ -162,7 +162,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(0).records }
 
-      its(:duration) { should eql(0) }
+      its(:duration) { should eql(0.0) }
 
       it { should be_empty }
 
@@ -176,7 +176,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(0).records }
 
-      its(:duration) { should eql(0) }
+      its(:duration) { should eql(0.0) }
 
       it { should be_empty }
 
@@ -190,7 +190,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(0).records }
 
-      its(:duration) { should eql(0) }
+      its(:duration) { should eql(0.0) }
 
       it { should be_empty }
 
@@ -204,7 +204,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(23155).records }
 
-      its(:duration) { should eql(579) }
+      its(:duration) { should be_within(0.1).of(579.5) }
 
       it { should_not be_empty }
 
@@ -226,7 +226,7 @@ describe Spektrum::Log::Flight do
 
       it { should_not be_empty }
 
-      its(:duration) { should eql(63) }
+      its(:duration) { should be_within(0.1).of(63.7) }
 
       its(:bind_type) { should eql('DSMX') }
 
