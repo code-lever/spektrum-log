@@ -22,4 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'ci_reporter', '= 1.8.4'
   spec.add_development_dependency 'rake', '~> 0.8'
   spec.add_development_dependency 'rspec', '~> 2.12'
+  spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'simplecov-gem-adapter'
+  spec.add_development_dependency 'simplecov-rcov'
 end
