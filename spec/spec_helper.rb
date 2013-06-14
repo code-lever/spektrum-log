@@ -4,6 +4,7 @@ require 'simplecov-rcov'
 SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
 SimpleCov.start 'gem' if ENV['COVERAGE']
 
+require 'awesome_print'
 require 'pathname'
 require 'spektrum/log'
 
