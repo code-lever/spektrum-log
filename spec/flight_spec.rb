@@ -24,6 +24,10 @@ describe Spektrum::Log::Flight do
 
       its(:model_type) { should eql('Fixed Wing') }
 
+      its(:gps1_records?) { should be_true }
+
+      its(:gps2_records?) { should be_true }
+
     end
 
     context 'flight 2' do
@@ -36,6 +40,10 @@ describe Spektrum::Log::Flight do
 
       its(:duration) { should be_within(0.1).of(14.8) }
 
+      its(:gps1_records?) { should be_true }
+
+      its(:gps2_records?) { should be_true }
+
     end
 
     context 'flight 3' do
@@ -47,6 +55,10 @@ describe Spektrum::Log::Flight do
       it { should have(641).records }
 
       its(:duration) { should be_within(0.1).of(15.0) }
+
+      its(:gps1_records?) { should be_true }
+
+      its(:gps2_records?) { should be_true }
 
     end
 
