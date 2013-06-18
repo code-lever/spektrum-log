@@ -266,4 +266,30 @@ describe Spektrum::Log::Flight do
 
   end
 
+  context 'data file GPS.TLM' do
+
+    let(:reader) { Spektrum::Log::Reader.new(data_file('GPS.TLM')) }
+
+    context 'flight 1' do
+
+      subject { reader.flights[0] }
+
+      its(:gps1_records?) { should be_true }
+
+      its(:gps2_records?) { should be_true }
+
+    end
+
+    context 'flight 2' do
+
+      subject { reader.flights[1] }
+
+      its(:gps1_records?) { should be_true }
+
+      its(:gps2_records?) { should be_true }
+
+    end
+
+  end
+
 end
