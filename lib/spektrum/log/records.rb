@@ -158,24 +158,39 @@ module Spektrum
         @altitude ||= two_byte_field(1..2, :little)
       end
 
+      def latitude_elements
+        a = hex_byte_field(6) # degrees
+        b = hex_byte_field(5) # degree-minutes
+        c = hex_byte_field(4) # degree-minutes / 10
+        d = hex_byte_field(3) # degree-minutes / 1000
+        [a, b, c, d]
+      end
+
       def latitude
-        a = byte_field(3) # 1/100 degree-second
-        b = byte_field(4) # degree-seconds
-        c = byte_field(5) # degree-minutes
-        d = byte_field(6) # degrees
-        [d, c, b, a]
+        mindec_to_degdec latitude_elements
+      end
+
+      def longitude_elements
+        a = hex_byte_field(10) # degrees
+        b = hex_byte_field(9)  # degree-minutes
+        c = hex_byte_field(8)  # degree-minutes / 10
+        d = hex_byte_field(7)  # degree-minutes / 1000
+        [a, b, c, d]
       end
 
       def longitude
-        a = byte_field(7) # 1/100 degree-second
-        b = byte_field(8) # degree-seconds
-        c = byte_field(9) # degree-minutes
-        d = byte_field(10) # degrees
-        [d, c, b, a]
+        mindec_to_degdec longitude_elements
       end
 
       def heading
         @heading ||= (two_byte_field(11..12, :little) / 10.0)
+      end
+
+      private
+
+      def mindec_to_degdec elts
+        raise ArgumentError unless elts.length == 4
+        elts[0] + ("#{elts[1]}.#{elts[2]}#{elts[3]}".to_f / 60.0)
       end
 
     end
