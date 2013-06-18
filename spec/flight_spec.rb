@@ -278,6 +278,8 @@ describe Spektrum::Log::Flight do
 
       its(:gps2_records?) { should be_true }
 
+      its(:to_kml?) { should be_true }
+
     end
 
     context 'flight 2' do
@@ -287,6 +289,8 @@ describe Spektrum::Log::Flight do
       its(:gps1_records?) { should be_true }
 
       its(:gps2_records?) { should be_true }
+
+      its(:to_kml?) { should be_true }
 
     end
 

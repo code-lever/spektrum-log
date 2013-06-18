@@ -167,7 +167,7 @@ module Spektrum
       end
 
       def latitude
-        mindec_to_degdec latitude_elements
+        @latitude ||= mindec_to_degdec latitude_elements
       end
 
       def longitude_elements
@@ -179,7 +179,11 @@ module Spektrum
       end
 
       def longitude
-        mindec_to_degdec longitude_elements
+        @longitude ||= mindec_to_degdec longitude_elements
+      end
+
+      def coordinate
+        [longitude, latitude, altitude]
       end
 
       def heading
