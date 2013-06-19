@@ -185,9 +185,10 @@ module Spektrum
       def longitude
         elements = 10.downto(7).map { |i| hex_byte_field(i) }
 
-        # upper nybble of 13th byte seems to change when 100+ longitude
-        # is encountered...  this is a guess!!!
-        elements = [byte_field(13) >> 4, elements].flatten
+        # 100+ longitude indicator guesses
+        #  - upper nybble of 13th byte seemed right, nope...
+        #  - current guess: 2nd bit of 14th byte...
+        elements = [((byte_field(14) & 0x04) == 0x04) ? 1 : 0, elements].flatten
 
         @longitude ||= convert_latlon(elements)
       end
