@@ -154,8 +154,16 @@ module Spektrum
         super timestamp, raw_data
       end
 
-      def altitude
-        @altitude ||= two_byte_field(1..2, :little)
+      def altitude unit = :feet
+        @altitude ||= (hex_byte_field(2) * 100) + hex_byte_field(1)
+        case unit
+        when :feet
+          @altitude * 0.32808399
+        when :meter
+          @altitude / 10.0
+        else
+          @altitude
+        end
       end
 
       def latitude_elements
@@ -179,7 +187,7 @@ module Spektrum
       end
 
       def heading
-        @heading ||= (two_byte_field(11..12, :little) / 10.0)
+        @heading ||= (hex_byte_field(12) * 10) + (hex_byte_field(11) / 10.0)
       end
 
       private
