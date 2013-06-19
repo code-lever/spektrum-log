@@ -342,4 +342,38 @@ describe Spektrum::Log::Flight do
 
   end
 
+  context 'data file GPS2.TLM' do
+
+    let(:reader) { Spektrum::Log::Reader.new(data_file('GPS2.TLM')) }
+
+    context 'flight 1' do
+
+      subject { reader.flights[0] }
+
+      its(:duration) { should be_within(1).of(129) }
+
+      its(:gps1_records?) { should be_true }
+
+      its(:gps2_records?) { should be_true }
+
+      its(:to_kml?) { should be_true }
+
+    end
+
+    context 'flight 2' do
+
+      subject { reader.flights[1] }
+
+      its(:duration) { should be_within(1).of(89) }
+
+      its(:gps1_records?) { should be_true }
+
+      its(:gps2_records?) { should be_true }
+
+      its(:to_kml?) { should be_true }
+
+    end
+
+  end
+
 end

@@ -52,6 +52,16 @@ describe Spektrum::Log::Reader do
 
   end
 
+  context 'data file GPS2.TLM' do
+
+    subject { Spektrum::Log::Reader.new(data_file('GPS2.TLM')) }
+
+    it { should have(2).flights }
+
+    its(:duration) { should be_within(0.1).of(217.8) }
+
+  end
+
   it 'should raise on bad input' do
     expect { Spektrum::Log::Reader.new(__FILE__) }.to raise_error
   end
