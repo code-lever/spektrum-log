@@ -47,7 +47,15 @@ module Spektrum
             end
           end
         end
+      rescue
+        raise ArgumentError, 'File does not appear to be an Spektrum log'
+      end
 
+      # Gets the total duration of all flights contained within.
+      #
+      # @return [Float] total duration of all flights, in seconds
+      def duration
+        @flights.map(&:duration).reduce(&:+)
       end
 
     end
