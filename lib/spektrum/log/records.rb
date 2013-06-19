@@ -167,20 +167,14 @@ module Spektrum
         end
       end
 
-      def latitude_elements
-        6.downto(3).map { |i| hex_byte_field(i) }
-      end
-
       def latitude
-        @latitude ||= mindec_to_degdec latitude_elements
-      end
-
-      def longitude_elements
-        10.downto(7).map { |i| hex_byte_field(i) }
+        elements = 6.downto(3).map { |i| hex_byte_field(i) }
+        @latitude ||= convert_latlon(elements)
       end
 
       def longitude
-        @longitude ||= mindec_to_degdec longitude_elements
+        elements = 10.downto(7).map { |i| hex_byte_field(i) }
+        @longitude ||= convert_latlon(elements)
       end
 
       def coordinate
@@ -193,7 +187,7 @@ module Spektrum
 
       private
 
-      def mindec_to_degdec elts
+      def convert_latlon elts
         raise ArgumentError unless elts.length == 4
         elts[0] + ("#{elts[1]}.#{elts[2]}#{elts[3]}".to_f / 60.0)
       end
