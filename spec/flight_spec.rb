@@ -82,7 +82,7 @@ describe Spektrum::Log::Flight do
 
       its(:bind_type) { should eql('DSMX') }
 
-      its(:model_name) { should eql('Voodoo 600') }
+      its(:model_name) { should eql('Voodoo 600 SK540') }
 
       its(:model_number) { should eql(1) }
 
@@ -96,6 +96,8 @@ describe Spektrum::Log::Flight do
 
       subject { reader.flights[304] }
 
+      its(:model_name) { should eql('ERW|N XL ULTRALIGHT') }
+
       its(:to_kml?) { should be_true }
 
     end
@@ -103,6 +105,8 @@ describe Spektrum::Log::Flight do
     context 'flight 306' do
 
       subject { reader.flights[305] }
+
+      its(:model_name) { should eql('ERW|N XL ULTRALIGHT') }
 
       its(:to_kml?) { should be_true }
 
@@ -112,6 +116,8 @@ describe Spektrum::Log::Flight do
 
       subject { reader.flights[307] }
 
+      its(:model_name) { should eql('ERW|N XL ULTRALIGHT') }
+
       its(:to_kml?) { should be_true }
 
     end
@@ -119,6 +125,8 @@ describe Spektrum::Log::Flight do
     context 'flight 312' do
 
       subject { reader.flights[311] }
+
+      its(:model_name) { should eql('ERW|N XL ULTRALIGHT') }
 
       its(:to_kml?) { should be_true }
 

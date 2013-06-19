@@ -51,7 +51,7 @@ module Spektrum
       #
       # @return [String] model name
       def model_name
-        @model_name ||= @headers.first.raw_data[8..18].unpack('Z*')[0].strip
+        @model_name ||= @headers.first.raw_data[8..27].unpack('Z*')[0].strip
       end
 
       # Gets the model's index from the transmitter.
