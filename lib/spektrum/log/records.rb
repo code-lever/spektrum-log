@@ -178,7 +178,7 @@ module Spektrum
       end
 
       def coordinate
-        [longitude, latitude, altitude]
+        [longitude, latitude, altitude(:meters)]
       end
 
       def heading
