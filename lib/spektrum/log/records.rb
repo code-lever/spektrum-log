@@ -175,13 +175,20 @@ module Spektrum
         end
       end
 
+      # + N, - S
       def latitude
         elements = 6.downto(3).map { |i| hex_byte_field(i) }
-        @latitude ||= convert_latlon(elements)
+        @latitude ||= convert_latlon([0, elements].flatten)
       end
 
+      # + E, - W
       def longitude
         elements = 10.downto(7).map { |i| hex_byte_field(i) }
+
+        # upper nybble of 13th byte seems to change when 100+ longitude
+        # is encountered...  this is a guess!!!
+        elements = [byte_field(13) >> 4, elements].flatten
+
         @longitude ||= convert_latlon(elements)
       end
 
@@ -196,8 +203,8 @@ module Spektrum
       private
 
       def convert_latlon elts
-        raise ArgumentError unless elts.length == 4
-        elts[0] + ("#{elts[1]}.#{elts[2]}#{elts[3]}".to_f / 60.0)
+        raise ArgumentError unless elts.length == 5
+        elts[0] * 100 + elts[1] + ("#{elts[2]}.#{elts[3]}#{elts[4]}".to_f / 60.0)
       end
 
     end
