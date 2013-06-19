@@ -220,12 +220,8 @@ module Spektrum
       end
 
       def time
-        ax = hex_byte_field(3) # hundredths
-        bx = hex_byte_field(4) # seconds
-        cx = hex_byte_field(5) # minutes
-        dx = hex_byte_field(6) # hours
-
-        [dx, cx, bx + (ax / 100.0)] # hh:mm:ss.sss
+        t = 3.upto(6).map { |i| hex_byte_field(i).to_s.rjust(2, '0') }
+        @time ||= "#{t[3]}:#{t[2]}:#{t[1]}.#{t[0]}"
       end
 
       def satellites

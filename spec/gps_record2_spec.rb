@@ -12,4 +12,6 @@ describe Spektrum::Log::GPSRecord2 do
 
   its(:satellites) { should eql(11) }
 
+  its(:time) { should eq('12:44:18.00') }
+
 end
