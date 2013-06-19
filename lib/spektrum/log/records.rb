@@ -68,8 +68,16 @@ module Spektrum
         raw_voltage != 0xFFFF
       end
 
-      def temperature
+      def temperature unit = :f
         @temperature ||= two_byte_field(5..6)
+        case unit
+        when :f
+          @temperature
+        when :c
+          (@temperature - 32) * (5.0 / 9.0)
+        else
+          @temperature
+        end
       end
 
       def temperature?

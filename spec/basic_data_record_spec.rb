@@ -36,6 +36,10 @@ describe Spektrum::Log::BasicDataRecord do
 
     its(:temperature) { should eq(161) }
 
+    it 'should allow temperature in celsius' do
+      subject.temperature(:c).should be_within(0.1).of(71.7)
+    end
+
     its(:voltage?) { should be_false }
 
   end
