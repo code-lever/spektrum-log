@@ -159,11 +159,7 @@ module Spektrum
       end
 
       def latitude_elements
-        a = hex_byte_field(6) # degrees
-        b = hex_byte_field(5) # degree-minutes
-        c = hex_byte_field(4) # degree-minutes / 10
-        d = hex_byte_field(3) # degree-minutes / 1000
-        [a, b, c, d]
+        6.downto(3).map { |i| hex_byte_field(i) }
       end
 
       def latitude
@@ -171,11 +167,7 @@ module Spektrum
       end
 
       def longitude_elements
-        a = hex_byte_field(10) # degrees
-        b = hex_byte_field(9)  # degree-minutes
-        c = hex_byte_field(8)  # degree-minutes / 10
-        d = hex_byte_field(7)  # degree-minutes / 1000
-        [a, b, c, d]
+        10.downto(7).map { |i| hex_byte_field(i) }
       end
 
       def longitude
