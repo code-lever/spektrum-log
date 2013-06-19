@@ -14,7 +14,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(191).records }
 
-      its(:duration) { should be_within(0.1).of(4.5) }
+      its(:duration) { should be_within(0.1).of(1.1) }
 
       its(:bind_type) { should eql('DSMX') }
 
@@ -38,7 +38,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(634).records }
 
-      its(:duration) { should be_within(0.1).of(14.8) }
+      its(:duration) { should be_within(0.1).of(3.8) }
 
       its(:gps1_records?) { should be_true }
 
@@ -54,7 +54,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(641).records }
 
-      its(:duration) { should be_within(0.1).of(15.0) }
+      its(:duration) { should be_within(0.1).of(3.8) }
 
       its(:gps1_records?) { should be_true }
 
@@ -78,7 +78,7 @@ describe Spektrum::Log::Flight do
 
       it { should_not be_empty }
 
-      its(:duration) { should be_within(0.1).of(2.2) }
+      its(:duration) { should be_within(0.1).of(0.6) }
 
       its(:bind_type) { should eql('DSMX') }
 
@@ -216,7 +216,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(23155).records }
 
-      its(:duration) { should be_within(0.1).of(579.5) }
+      its(:duration) { should be_within(1).of(148) }
 
       it { should_not be_empty }
 
@@ -238,7 +238,7 @@ describe Spektrum::Log::Flight do
 
       it { should_not be_empty }
 
-      its(:duration) { should be_within(0.1).of(63.7) }
+      its(:duration) { should be_within(0.1).of(16.3) }
 
       its(:bind_type) { should eql('DSMX') }
 
@@ -274,6 +274,8 @@ describe Spektrum::Log::Flight do
 
       subject { reader.flights[0] }
 
+      its(:duration) { should be_within(1).of(179) }
+
       its(:gps1_records?) { should be_true }
 
       its(:gps2_records?) { should be_true }
@@ -285,6 +287,8 @@ describe Spektrum::Log::Flight do
     context 'flight 2' do
 
       subject { reader.flights[1] }
+
+      its(:duration) { should be_within(1).of(188) }
 
       its(:gps1_records?) { should be_true }
 

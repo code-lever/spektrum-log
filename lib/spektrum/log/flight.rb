@@ -22,7 +22,7 @@ module Spektrum
       #
       # @return [Float] duration of the flight, in seconds
       def duration
-        @duration ||= ((@records.empty? ? 0.0 : @records.last.timestamp - @records.first.timestamp) / 256.0)
+        @duration ||= ((@records.empty? ? 0.0 : @records.last.timestamp - @records.first.timestamp) / 1000.0)
       end
 
       # Determines if this flight has any data.  Models without telemetry
