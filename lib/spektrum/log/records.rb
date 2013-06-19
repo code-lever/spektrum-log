@@ -212,8 +212,8 @@ module Spektrum
       end
 
       def time
-        t = 3.upto(6).map { |i| hex_byte_field(i).to_s.rjust(2, '0') }
-        @time ||= "#{t[3]}:#{t[2]}:#{t[1]}.#{t[0]}"
+        elements = 6.downto(3).map { |i| hex_byte_field(i).to_s.rjust(2, '0') }
+        @time ||= "%.2i:%.2i:%.2i.%.2i" % elements
       end
 
       def satellites
