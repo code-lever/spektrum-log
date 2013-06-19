@@ -88,6 +88,40 @@ describe Spektrum::Log::Flight do
 
       its(:model_type) { should eql('Helicopter') }
 
+      its(:to_kml?) { should be_false }
+
+    end
+
+    context 'flight 305' do
+
+      subject { reader.flights[304] }
+
+      its(:to_kml?) { should be_true }
+
+    end
+
+    context 'flight 306' do
+
+      subject { reader.flights[305] }
+
+      its(:to_kml?) { should be_true }
+
+    end
+
+    context 'flight 308' do
+
+      subject { reader.flights[307] }
+
+      its(:to_kml?) { should be_true }
+
+    end
+
+    context 'flight 312' do
+
+      subject { reader.flights[311] }
+
+      its(:to_kml?) { should be_true }
+
     end
 
   end
