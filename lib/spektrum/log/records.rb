@@ -202,14 +202,14 @@ module Spektrum
 
       # :knots, :mph, :kph
       def speed unit = :knots
-        @speed ||= two_byte_field(1..2, :little)
+        @speed ||= (hex_byte_field(2) * 100) + hex_byte_field(1)
         case unit
         when :knots
           @speed / 10.0
         when :mph
-          @speed * 0.115
+          @speed * 0.115078
         when :kph
-          @speed * 0.185
+          @speed * 0.1852
         else
           @speed
         end
