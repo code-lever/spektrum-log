@@ -154,12 +154,13 @@ module Spektrum
         super timestamp, raw_data
       end
 
+      # :feet, :meters
       def altitude unit = :feet
         @altitude ||= (hex_byte_field(2) * 100) + hex_byte_field(1)
         case unit
         when :feet
           @altitude * 0.32808399
-        when :meter
+        when :meters
           @altitude / 10.0
         else
           @altitude

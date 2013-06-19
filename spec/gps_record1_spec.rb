@@ -14,6 +14,10 @@ describe Spektrum::Log::GPSRecord1 do
 
     its(:altitude) { should be_within(0.1).of(28.5) }
 
+    it 'should allow altitude in meters' do
+      subject.altitude(:meters).should be_within(0.1).of(8.7)
+    end
+
     its(:heading) { should be_within(0.01).of(334.6)}
 
     its(:latitude) { should be_within(0.000001).of(54.670307) }
@@ -27,6 +31,10 @@ describe Spektrum::Log::GPSRecord1 do
     let(:raw_data) { ["00660221234054966218093030103B"].pack('H*') }
 
     its(:altitude) { should be_within(0.1).of(87.3) }
+
+    it 'should allow altitude in meters' do
+      subject.altitude(:meters).should be_within(0.1).of(26.6)
+    end
 
     its(:heading) { should be_within(0.01).of(303.0)}
 
