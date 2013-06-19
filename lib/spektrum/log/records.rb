@@ -228,8 +228,8 @@ module Spektrum
         [dx, cx, bx + (ax / 100.0)] # hh:mm:ss.sss
       end
 
-      def sats
-        @sats ||= byte_field(7)
+      def satellites
+        @satellites ||= hex_byte_field(7)
       end
 
     end
