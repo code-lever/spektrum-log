@@ -212,7 +212,7 @@ module Spektrum
       end
 
       def time
-        elements = 6.downto(3).map { |i| hex_byte_field(i).to_s.rjust(2, '0') }
+        elements = 6.downto(3).map { |i| hex_byte_field(i) }
         @time ||= "%.2i:%.2i:%.2i.%.2i" % elements
       end
 
