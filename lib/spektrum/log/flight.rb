@@ -173,13 +173,13 @@ module Spektrum
       # Determines if there are any records in this flight of the given type.
       #
       # @param type [Class] type of record to check for
-      # @return [Boolean] true if there are records, false otherwise
+      # @return [Boolean] true if there are valid records, false otherwise
       def any_records?(type)
-        @records.any? { |rec| rec.is_a? type }
+        @records.any? { |rec| rec.is_a?(type) && rec.valid? }
       end
 
       def select_records(type)
-        @records.select { |rec| rec.is_a? type }
+        @records.select { |rec| rec.is_a?(type) && rec.valid? }
       end
 
     end

@@ -14,6 +14,14 @@ module Spektrum
         @raw_data = raw_data
       end
 
+      # Determines if this record should be considered valid.  Definitions of valid
+      # will vary by the type of record.
+      #
+      # @return [Boolean] true if the record is valid, false otherwise
+      def valid?
+        true
+      end
+
       protected
 
       def byte_field range
@@ -199,6 +207,10 @@ module Spektrum
 
       def heading
         @heading ||= (hex_byte_field(12) * 10) + (hex_byte_field(11) / 10.0)
+      end
+
+      def valid?
+        !(latitude == 0.0 && longitude == 0.0 && altitude == 0.0)
       end
 
       private

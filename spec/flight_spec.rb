@@ -24,7 +24,7 @@ describe Spektrum::Log::Flight do
 
       its(:model_type) { should eql('Fixed Wing') }
 
-      its(:gps1_records?) { should be_true }
+      its(:gps1_records?) { should be_false }
 
       its(:gps2_records?) { should be_true }
 
@@ -320,7 +320,11 @@ describe Spektrum::Log::Flight do
 
       its(:gps1_records?) { should be_true }
 
+      it { should have(6419).gps1_records }
+
       its(:gps2_records?) { should be_true }
+
+      it { should have(7096).gps2_records }
 
       its(:to_kml?) { should be_true }
 
@@ -334,7 +338,11 @@ describe Spektrum::Log::Flight do
 
       its(:gps1_records?) { should be_true }
 
+      it { should have(7718).gps1_records }
+
       its(:gps2_records?) { should be_true }
+
+      it { should have(7710).gps2_records }
 
       its(:to_kml?) { should be_true }
 
@@ -354,7 +362,11 @@ describe Spektrum::Log::Flight do
 
       its(:gps1_records?) { should be_true }
 
+      it { should have(10647).gps1_records }
+
       its(:gps2_records?) { should be_true }
+
+      it { should have(10645).gps2_records }
 
       its(:to_kml?) { should be_true }
 
@@ -366,9 +378,11 @@ describe Spektrum::Log::Flight do
 
       its(:duration) { should be_within(1).of(89) }
 
-      its(:gps1_records?) { should be_true }
+      it { should have(4792).gps1_records }
 
       its(:gps2_records?) { should be_true }
+
+      it { should have(4795).gps2_records }
 
       its(:to_kml?) { should be_true }
 
