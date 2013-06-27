@@ -142,28 +142,28 @@ module Spektrum
 
         kml = KMLFile.new
         kml.objects << KML::Document.new(
-            :name => 'NAME HERE',
-            :description => 'DESCRIPTION HERE',
-            :styles => [
-                KML::Style.new(
-                    :id => 'yellowLineGreenPoly',
-                    :line_style => KML::LineStyle.new(:color => '7f00ffff', :width => 4),
-                    :poly_style => KML::PolyStyle.new(:color => '7f00ff00')
-                )
-            ],
-            :features => [
-                KML::Placemark.new(
-                    :name => 'Absolute Extruded',
-                    :description => 'Transparent green wall with yellow outlines',
-                    :style_url => '#yellowLineGreenPoly',
-                    :geometry => KML::LineString.new(
-                        :extrude => true,
-                        :tessellate => true,
-                        :altitude_mode => 'absolute',
-                        :coordinates => gps1_records.map(&:coordinate).map { |c| c.join(',') }.join(' ')
-                    )
-                )
-            ]
+          :name => 'NAME HERE',
+          :description => 'DESCRIPTION HERE',
+          :styles => [
+            KML::Style.new(
+              :id => 'yellowLineGreenPoly',
+              :line_style => KML::LineStyle.new(:color => '7f00ffff', :width => 4),
+              :poly_style => KML::PolyStyle.new(:color => '7f00ff00')
+            )
+          ],
+          :features => [
+            KML::Placemark.new(
+              :name => 'Absolute Extruded',
+              :description => 'Transparent green wall with yellow outlines',
+              :style_url => '#yellowLineGreenPoly',
+              :geometry => KML::LineString.new(
+                :extrude => true,
+                :tessellate => true,
+                :altitude_mode => 'absolute',
+                :coordinates => gps1_records.map(&:coordinate).map { |c| c.join(',') }.join(' ')
+              )
+            )
+          ]
         )
         kml.render
       end
