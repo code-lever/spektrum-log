@@ -390,4 +390,28 @@ describe Spektrum::Log::Flight do
 
   end
 
+  context 'data file X5-GPS1.TLM' do
+
+    let(:reader) { Spektrum::Log::Reader.new(data_file('X5-GPS1.TLM')) }
+
+    its 'flights should contain some gps coordinates' do
+
+      reader.flights.select { |f| f.gps1_records? }.should have(4).flights
+
+    end
+
+    its 'longitudes should all be negative' do
+
+      reader.flights.each do |flight|
+
+        flight.gps1_records.each do |gps1|
+          gps1.longitude.should be < 0.0
+        end
+
+      end
+
+    end
+
+  end
+
 end

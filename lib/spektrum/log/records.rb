@@ -193,12 +193,17 @@ module Spektrum
       def longitude
         elements = 10.downto(7).map { |i| hex_byte_field(i) }
 
-        # 100+ longitude indicator guesses
-        #  - upper nybble of 13th byte seemed right, nope...
-        #  - current guess: 2nd bit of 14th byte...
-        elements = [((byte_field(14) & 0x04) == 0x04) ? 1 : 0, elements].flatten
+        # 100+ longitude indicator guesses (X marks proven invalid guess):
+        #  X upper nybble of 13th byte
+        #  - 2nd bit of 14th byte
+        hundreds = ((byte_field(14) & 0x04) == 0x04) ? 1 : 0
 
-        @longitude ||= convert_latlon(elements)
+        # +/- longitude indicator guesses (X marks proven invalid guess):
+        #  - 1st bit of 14th byte (1 - pos, 0 - neg)
+        multiplier = ((byte_field(14) & 0x02) == 0x02) ? 1 : -1
+
+        elements = [hundreds, elements].flatten
+        @longitude ||= multiplier * convert_latlon(elements)
       end
 
       def coordinate

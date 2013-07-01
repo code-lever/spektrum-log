@@ -94,4 +94,40 @@ describe Spektrum::Log::GPSRecord1 do
 
   end
 
+  context 'data set 6' do
+
+    let(:raw_data) { ["007430561011417459009672350939"].pack('H*') }
+
+    its(:altitude) { should be_within(0.1).of(1008.5) }
+
+    it 'should allow altitude in meters' do
+      subject.altitude(:meters).should be_within(0.1).of(307.4)
+    end
+
+    its(:heading) { should be_within(0.1).of(357.2)}
+
+    its(:latitude) { should be_within(0.000001).of(41.185093) }
+
+    its(:longitude) { should be_within(0.000001).of(-96.009956) }
+
+  end
+
+  context 'data set 7' do
+
+    let(:raw_data) { ["005518231111415959009602100939"].pack('H*') }
+
+    its(:altitude) { should be_within(0.1).of(608.6) }
+
+    it 'should allow altitude in meters' do
+      subject.altitude(:meters).should be_within(0.1).of(185.5)
+    end
+
+    its(:heading) { should be_within(0.1).of(100.2)}
+
+    its(:latitude) { should be_within(0.000001).of(41.185205) }
+
+    its(:longitude) { should be_within(0.000001).of(-96.009932) }
+
+  end
+
 end
