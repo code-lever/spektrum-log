@@ -41,9 +41,9 @@ module Spektrum
 
               headers_complete = rest.unpack('S')[0] == 0x1717
             else
-              type = file.read(1).unpack('C')[0]
-              rest = file.read(15)
-              records << Records.create(type, first, rest)
+              data = file.read(16)
+              type = data[0].unpack('C')[0]
+              records << Records.create(type, first, data)
             end
           end
         end

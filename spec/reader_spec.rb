@@ -8,7 +8,7 @@ describe Spektrum::Log::Reader do
 
     it { should have(3).flights }
 
-    its(:duration) { should be_within(0.1).of(8.8) }
+    its(:duration) { should be_within(0.1).of(34.3) }
 
   end
 
@@ -18,7 +18,7 @@ describe Spektrum::Log::Reader do
 
     it { should have(312).flights }
 
-    its(:duration) { should be_within(0.1).of(878.8) }
+    its(:duration) { should be_within(0.1).of(1570.7) }
 
   end
 
@@ -28,7 +28,7 @@ describe Spektrum::Log::Reader do
 
     it { should have(12).flights }
 
-    its(:duration) { should be_within(0.1).of(148.4) }
+    its(:duration) { should be_within(0.1).of(144.8) }
 
   end
 
@@ -38,7 +38,7 @@ describe Spektrum::Log::Reader do
 
     it { should have(1).flights }
 
-    its(:duration) { should be_within(0.1).of(16.3) }
+    its(:duration) { should be_within(0.1).of(15.9) }
 
   end
 
@@ -48,7 +48,7 @@ describe Spektrum::Log::Reader do
 
     it { should have(2).flights }
 
-    its(:duration) { should be_within(0.1).of(366.4) }
+    its(:duration) { should be_within(0.1).of(1431.4) }
 
   end
 
@@ -58,7 +58,27 @@ describe Spektrum::Log::Reader do
 
     it { should have(2).flights }
 
-    its(:duration) { should be_within(0.1).of(217.8) }
+    its(:duration) { should be_within(0.1).of(851.0) }
+
+  end
+
+  context 'data file X5-GPS1.TLM' do
+
+    subject { Spektrum::Log::Reader.new(data_file('X5-GPS1.TLM')) }
+
+    it { should have(5).flights }
+
+    its(:duration) { should be_within(0.1).of(1305.2) }
+
+  end
+
+  context 'data file X5-GPS2.TLM' do
+
+    subject { Spektrum::Log::Reader.new(data_file('X5-GPS2.TLM')) }
+
+    it { should have(2).flights }
+
+    its(:duration) { should be_within(0.1).of(627.7) }
 
   end
 

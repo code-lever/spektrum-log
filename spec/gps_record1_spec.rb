@@ -8,7 +8,7 @@ describe Spektrum::Log::GPSRecord1 do
 
   context 'data set 1' do
 
-    let(:raw_data) { ["00870084214054886918094633093B"].pack('H*') }
+    let(:raw_data) { ["1600870084214054886918094633093B"].pack('H*') }
 
     its(:timestamp) { should eql(0x00010E8D) }
 
@@ -28,7 +28,7 @@ describe Spektrum::Log::GPSRecord1 do
 
   context 'data set 2' do
 
-    let(:raw_data) { ["00660221234054966218093030103B"].pack('H*') }
+    let(:raw_data) { ["1600660221234054966218093030103B"].pack('H*') }
 
     its(:altitude) { should be_within(0.1).of(87.3) }
 
@@ -42,7 +42,7 @@ describe Spektrum::Log::GPSRecord1 do
 
   context 'data set 3' do
 
-    let(:raw_data) { ["00130052242101046851036804153F"].pack('H*') }
+    let(:raw_data) { ["1600130052242101046851036804153F"].pack('H*') }
 
     its(:altitude) { should be_within(0.1).of(4.3) }
 
@@ -60,7 +60,7 @@ describe Spektrum::Log::GPSRecord1 do
 
   context 'data set 4' do
 
-    let(:raw_data) { ["00560359222101676651038623141F"].pack('H*') }
+    let(:raw_data) { ["1600560359222101676651038623141F"].pack('H*') }
 
     its(:altitude) { should be_within(0.1).of(116.8) }
 
@@ -78,7 +78,7 @@ describe Spektrum::Log::GPSRecord1 do
 
   context 'data set 5' do
 
-    let(:raw_data) { ["00142125250249434045084625183B"].pack('H*') }
+    let(:raw_data) { ["1600142125250249434045084625183B"].pack('H*') }
 
     its(:altitude) { should be_within(0.1).of(693.6) }
 
@@ -96,7 +96,7 @@ describe Spektrum::Log::GPSRecord1 do
 
   context 'data set 6' do
 
-    let(:raw_data) { ["007430561011417459009672350939"].pack('H*') }
+    let(:raw_data) { ["16007430561011417459009672350939"].pack('H*') }
 
     its(:altitude) { should be_within(0.1).of(1008.5) }
 
@@ -114,7 +114,7 @@ describe Spektrum::Log::GPSRecord1 do
 
   context 'data set 7' do
 
-    let(:raw_data) { ["005518231111415959009602100939"].pack('H*') }
+    let(:raw_data) { ["16005518231111415959009602100939"].pack('H*') }
 
     its(:altitude) { should be_within(0.1).of(608.6) }
 

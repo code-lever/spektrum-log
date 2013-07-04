@@ -14,7 +14,7 @@ describe Spektrum::Log::Flight do
 
       it { should have(191).records }
 
-      its(:duration) { should be_within(0.1).of(1.1) }
+      its(:duration) { should be_within(0.1).of(4.5) }
 
       its(:bind_type) { should eql('DSMX') }
 
@@ -23,6 +23,8 @@ describe Spektrum::Log::Flight do
       its(:model_number) { should eql(1) }
 
       its(:model_type) { should eql('Fixed Wing') }
+
+      its(:telemetry_unit) { should == 'TM1000' }
 
       its(:gps1_records?) { should be_false }
 
@@ -38,7 +40,9 @@ describe Spektrum::Log::Flight do
 
       it { should have(634).records }
 
-      its(:duration) { should be_within(0.1).of(3.8) }
+      its(:duration) { should be_within(0.1).of(14.8) }
+
+      its(:telemetry_unit) { should == 'TM1000' }
 
       its(:gps1_records?) { should be_true }
 
@@ -54,7 +58,9 @@ describe Spektrum::Log::Flight do
 
       it { should have(641).records }
 
-      its(:duration) { should be_within(0.1).of(3.8) }
+      its(:duration) { should be_within(0.1).of(15.0) }
+
+      its(:telemetry_unit) { should == 'TM1000' }
 
       its(:gps1_records?) { should be_true }
 
@@ -88,6 +94,8 @@ describe Spektrum::Log::Flight do
 
       its(:model_type) { should eql('Helicopter') }
 
+      its(:telemetry_unit) { should == 'TM1100' }
+
       its(:to_kml?) { should be_false }
 
     end
@@ -97,6 +105,8 @@ describe Spektrum::Log::Flight do
       subject { reader.flights[304] }
 
       its(:model_name) { should eql('ERW|N XL ULTRALIGHT') }
+
+      its(:telemetry_unit) { should == 'TM1000' }
 
       its(:to_kml?) { should be_true }
 
@@ -148,6 +158,8 @@ describe Spektrum::Log::Flight do
 
       its(:duration) { should eql(0.0) }
 
+      its(:telemetry_unit) { should == 'None' }
+
       it { should be_empty }
 
     end
@@ -161,6 +173,8 @@ describe Spektrum::Log::Flight do
       it { should have(0).records }
 
       its(:duration) { should eql(0.0) }
+
+      its(:telemetry_unit) { should == 'None' }
 
       it { should be_empty }
 
@@ -176,6 +190,8 @@ describe Spektrum::Log::Flight do
 
       its(:duration) { should eql(0.0) }
 
+      its(:telemetry_unit) { should == 'None' }
+
       it { should be_empty }
 
     end
@@ -189,6 +205,8 @@ describe Spektrum::Log::Flight do
       it { should have(0).records }
 
       its(:duration) { should eql(0.0) }
+
+      its(:telemetry_unit) { should == 'None' }
 
       it { should be_empty }
 
@@ -204,6 +222,8 @@ describe Spektrum::Log::Flight do
 
       its(:duration) { should eql(0.0) }
 
+      its(:telemetry_unit) { should == 'None' }
+
       it { should be_empty }
 
     end
@@ -217,6 +237,8 @@ describe Spektrum::Log::Flight do
       it { should have(0).records }
 
       its(:duration) { should eql(0.0) }
+
+      its(:telemetry_unit) { should == 'None' }
 
       it { should be_empty }
 
@@ -232,6 +254,8 @@ describe Spektrum::Log::Flight do
 
       its(:duration) { should eql(0.0) }
 
+      its(:telemetry_unit) { should == 'None' }
+
       it { should be_empty }
 
     end
@@ -246,6 +270,8 @@ describe Spektrum::Log::Flight do
 
       its(:duration) { should eql(0.0) }
 
+      its(:telemetry_unit) { should == 'None' }
+
       it { should be_empty }
 
     end
@@ -258,7 +284,9 @@ describe Spektrum::Log::Flight do
 
       it { should have(23155).records }
 
-      its(:duration) { should be_within(1).of(148) }
+      its(:duration) { should be_within(0.1).of(144.8) }
+
+      its(:telemetry_unit) { should == 'TM1100' }
 
       it { should_not be_empty }
 
@@ -280,7 +308,7 @@ describe Spektrum::Log::Flight do
 
       it { should_not be_empty }
 
-      its(:duration) { should be_within(0.1).of(16.3) }
+      its(:duration) { should be_within(0.1).of(15.9) }
 
       its(:bind_type) { should eql('DSMX') }
 
@@ -289,6 +317,8 @@ describe Spektrum::Log::Flight do
       its(:model_number) { should eql(5) }
 
       its(:model_type) { should eql('Helicopter') }
+
+      its(:telemetry_unit) { should == 'TM1100' }
 
       its(:altimeter_records?) { should be_false }
 
@@ -316,7 +346,9 @@ describe Spektrum::Log::Flight do
 
       subject { reader.flights[0] }
 
-      its(:duration) { should be_within(1).of(179) }
+      its(:duration) { should be_within(1).of(697) }
+
+      its(:telemetry_unit) { should == 'TM1000' }
 
       its(:gps1_records?) { should be_true }
 
@@ -334,7 +366,9 @@ describe Spektrum::Log::Flight do
 
       subject { reader.flights[1] }
 
-      its(:duration) { should be_within(1).of(188) }
+      its(:duration) { should be_within(1).of(733) }
+
+      its(:telemetry_unit) { should == 'TM1000' }
 
       its(:gps1_records?) { should be_true }
 
@@ -358,7 +392,9 @@ describe Spektrum::Log::Flight do
 
       subject { reader.flights[0] }
 
-      its(:duration) { should be_within(1).of(129) }
+      its(:duration) { should be_within(1).of(503) }
+
+      its(:telemetry_unit) { should == 'TM1000' }
 
       its(:gps1_records?) { should be_true }
 
@@ -376,7 +412,9 @@ describe Spektrum::Log::Flight do
 
       subject { reader.flights[1] }
 
-      its(:duration) { should be_within(1).of(89) }
+      its(:duration) { should be_within(1).of(347) }
+
+      its(:telemetry_unit) { should == 'TM1000' }
 
       it { should have(4792).gps1_records }
 
@@ -409,6 +447,100 @@ describe Spektrum::Log::Flight do
         end
 
       end
+
+    end
+
+    context 'flight 1' do
+
+      subject { reader.flights[0] }
+
+      its(:duration) { should be_within(0.1).of(318.6) }
+
+      its(:telemetry_unit) { should == 'TM1000' }
+
+    end
+
+    context 'flight 2' do
+
+      subject { reader.flights[1] }
+
+      its(:duration) { should be_within(0.1).of(327.5) }
+
+      its(:telemetry_unit) { should == 'TM1000' }
+
+    end
+
+    context 'flight 3' do
+
+      subject { reader.flights[2] }
+
+      its(:duration) { should be_within(0.1).of(326.5) }
+
+      its(:telemetry_unit) { should == 'TM1000' }
+
+    end
+
+    context 'flight 4' do
+
+      subject { reader.flights[3] }
+
+      its(:duration) { should eql(0.0) }
+
+      its(:telemetry_unit) { should == 'None' }
+
+    end
+
+    context 'flight 5' do
+
+      subject { reader.flights[4] }
+
+      its(:duration) { should be_within(0.1).of(332.6) }
+
+      its(:telemetry_unit) { should == 'TM1000' }
+
+    end
+
+  end
+
+  context 'data file X5-GPS2.TLM' do
+
+    let(:reader) { Spektrum::Log::Reader.new(data_file('X5-GPS2.TLM')) }
+
+    its 'flights should contain some gps coordinates' do
+
+      reader.flights.select { |f| f.gps1_records? }.should have(2).flights
+
+    end
+
+    its 'longitudes should all be negative' do
+
+      reader.flights.each do |flight|
+
+        flight.gps1_records.each do |gps1|
+          gps1.longitude.should be < 0.0
+        end
+
+      end
+
+    end
+
+    context 'flight 1' do
+
+      subject { reader.flights[0] }
+
+      its(:duration) { should be_within(0.1).of(328.6) }
+
+      its(:telemetry_unit) { should == 'TM1000' }
+
+    end
+
+    context 'flight 2' do
+
+      subject { reader.flights[1] }
+
+      its(:duration) { should be_within(0.1).of(299.1) }
+
+      its(:telemetry_unit) { should == 'TM1000' }
 
     end
 

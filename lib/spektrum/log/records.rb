@@ -7,11 +7,15 @@ module Spektrum
       attr_reader :timestamp
 
       def initialize timestamp, raw_data
-        if raw_data.length != 15
+        if raw_data.length != 16
           raise ArgumentError, "raw_data incorrectly sized (#{raw_data.length})"
         end
         @timestamp = timestamp
         @raw_data = raw_data
+      end
+
+      def type
+        @type ||= byte_field(0)
       end
 
       # Determines if this record should be considered valid.  Definitions of valid
@@ -49,7 +53,7 @@ module Spektrum
       end
 
       def altitude
-        @altitude ||= two_byte_field(1..2)
+        @altitude ||= two_byte_field(2..3)
       end
 
     end
@@ -77,7 +81,7 @@ module Spektrum
       end
 
       def temperature unit = :f
-        @temperature ||= two_byte_field(5..6)
+        @temperature ||= two_byte_field(6..7)
         case unit
         when :f
           @temperature
@@ -95,11 +99,11 @@ module Spektrum
       private
 
       def raw_rpm
-        @raw_rpm ||= two_byte_field(1..2)
+        @raw_rpm ||= two_byte_field(2..3)
       end
 
       def raw_voltage
-        @raw_voltage ||= two_byte_field(3..4)
+        @raw_voltage ||= two_byte_field(4..5)
       end
 
     end
@@ -127,7 +131,7 @@ module Spektrum
       private
 
       def raw_rx_voltage
-        @raw_rx_voltage ||= two_byte_field(13..14)
+        @raw_rx_voltage ||= two_byte_field(14..15)
       end
 
     end
@@ -139,27 +143,27 @@ module Spektrum
       end
 
       def x
-        @x ||= two_byte_field(1..2)
+        @x ||= two_byte_field(2..3)
       end
 
       def y
-        @y ||= two_byte_field(3..4)
+        @y ||= two_byte_field(4..5)
       end
 
       def z
-        @z ||= two_byte_field(5..6)
+        @z ||= two_byte_field(6..7)
       end
 
       def x_max
-        @x_max ||= two_byte_field(7..8)
+        @x_max ||= two_byte_field(8..9)
       end
 
       def y_max
-        @y_max ||= two_byte_field(9..10)
+        @y_max ||= two_byte_field(10..11)
       end
 
       def z_max
-        @z_max ||= two_byte_field(11..12)
+        @z_max ||= two_byte_field(12..13)
       end
 
     end
@@ -172,7 +176,7 @@ module Spektrum
 
       # :feet, :meters
       def altitude unit = :feet
-        @altitude ||= (hex_byte_field(2) * 100) + hex_byte_field(1)
+        @altitude ||= (hex_byte_field(3) * 100) + hex_byte_field(2)
         case unit
         when :feet
           @altitude * 0.32808399
@@ -185,22 +189,22 @@ module Spektrum
 
       # + N, - S
       def latitude
-        elements = 6.downto(3).map { |i| hex_byte_field(i) }
+        elements = 7.downto(4).map { |i| hex_byte_field(i) }
         @latitude ||= convert_latlon([0, elements].flatten)
       end
 
       # + E, - W
       def longitude
-        elements = 10.downto(7).map { |i| hex_byte_field(i) }
+        elements = 11.downto(8).map { |i| hex_byte_field(i) }
 
         # 100+ longitude indicator guesses (X marks proven invalid guess):
         #  X upper nybble of 13th byte
         #  - 2nd bit of 14th byte
-        hundreds = ((byte_field(14) & 0x04) == 0x04) ? 1 : 0
+        hundreds = ((byte_field(15) & 0x04) == 0x04) ? 1 : 0
 
         # +/- longitude indicator guesses (X marks proven invalid guess):
         #  - 1st bit of 14th byte (1 - pos, 0 - neg)
-        multiplier = ((byte_field(14) & 0x02) == 0x02) ? 1 : -1
+        multiplier = ((byte_field(15) & 0x02) == 0x02) ? 1 : -1
 
         elements = [hundreds, elements].flatten
         @longitude ||= multiplier * convert_latlon(elements)
@@ -211,7 +215,7 @@ module Spektrum
       end
 
       def heading
-        @heading ||= (hex_byte_field(12) * 10) + (hex_byte_field(11) / 10.0)
+        @heading ||= (hex_byte_field(13) * 10) + (hex_byte_field(12) / 10.0)
       end
 
       def valid?
@@ -235,7 +239,7 @@ module Spektrum
 
       # :knots, :mph, :kph
       def speed unit = :knots
-        @speed ||= (hex_byte_field(2) * 100) + hex_byte_field(1)
+        @speed ||= (hex_byte_field(3) * 100) + hex_byte_field(2)
         case unit
         when :knots
           @speed / 10.0
@@ -249,12 +253,12 @@ module Spektrum
       end
 
       def time
-        elements = 6.downto(3).map { |i| hex_byte_field(i) }
+        elements = 7.downto(4).map { |i| hex_byte_field(i) }
         @time ||= "%.2i:%.2i:%.2i.%.2i" % elements
       end
 
       def satellites
-        @satellites ||= hex_byte_field(7)
+        @satellites ||= hex_byte_field(8)
       end
 
     end
@@ -274,11 +278,10 @@ module Spektrum
       end
 
       def speed
-        @speed ||= two_byte_field(1..2)
+        @speed ||= two_byte_field(2..3)
       end
 
     end
-
 
     class Records
 

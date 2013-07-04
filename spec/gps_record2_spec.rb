@@ -8,7 +8,7 @@ describe Spektrum::Log::GPSRecord2 do
 
   context 'data set 1' do
 
-    let(:raw_data) { ["00500000184412110018099909073B"].pack('H*') }
+    let(:raw_data) { ["1700500000184412110018099909073B"].pack('H*') }
 
     its(:timestamp) { should eql(0x0002C8D5) }
 
@@ -30,7 +30,7 @@ describe Spektrum::Log::GPSRecord2 do
 
   context 'data set 2' do
 
-    let(:raw_data) { ["00270300011013080018093030103B"].pack('H*') }
+    let(:raw_data) { ["1700270300011013080018093030103B"].pack('H*') }
 
     its(:satellites) { should eql(8) }
 

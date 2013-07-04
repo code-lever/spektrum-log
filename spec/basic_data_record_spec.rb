@@ -4,7 +4,7 @@ describe Spektrum::Log::BasicDataRecord do
 
   let(:timestamp) { 0xC67C0100 }
 
-  let(:raw_data) { ["00FFFF13897FFF0000000000000000"].pack('H*') }
+  let(:raw_data) { ["7E00FFFF13897FFF0000000000000000"].pack('H*') }
 
   subject { Spektrum::Log::BasicDataRecord.new(timestamp, raw_data) }
 
@@ -12,7 +12,7 @@ describe Spektrum::Log::BasicDataRecord do
 
   context 'with only rpm' do
 
-    let(:raw_data) { ["000123FFFF7FFF0000000000000000"].pack('H*') }
+    let(:raw_data) { ["FE000123FFFF7FFF0000000000000000"].pack('H*') }
 
     its(:rpm?) { should be_true }
 
@@ -28,7 +28,7 @@ describe Spektrum::Log::BasicDataRecord do
 
   context 'with only temperature' do
 
-    let(:raw_data) { ["00FFFFFFFF00A10000000000000000"].pack('H*') }
+    let(:raw_data) { ["7E00FFFFFFFF00A10000000000000000"].pack('H*') }
 
     its(:rpm?) { should be_false }
 
@@ -46,7 +46,7 @@ describe Spektrum::Log::BasicDataRecord do
 
   context 'with only voltage' do
 
-    let(:raw_data) { ["00FFFF13897FFF0000000000000000"].pack('H*') }
+    let(:raw_data) { ["FE00FFFF13897FFF0000000000000000"].pack('H*') }
 
     its(:rpm?) { should be_false }
 
@@ -60,7 +60,7 @@ describe Spektrum::Log::BasicDataRecord do
 
   context 'with everything' do
 
-    let(:raw_data) { ["0000A6138900A60000000000000000"].pack('H*') }
+    let(:raw_data) { ["7E0000A6138900A60000000000000000"].pack('H*') }
 
     its(:rpm?) { should be_true }
 

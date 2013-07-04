@@ -22,7 +22,7 @@ module Spektrum
       #
       # @return [Float] duration of the flight, in seconds
       def duration
-        @duration ||= ((@records.empty? ? 0.0 : @records.last.timestamp - @records.first.timestamp) / 1000.0)
+        @duration ||= timestamp_delta / time_divisor
       end
 
       # Determines if this flight has any data.  Models without telemetry
@@ -73,6 +73,32 @@ module Spektrum
                         else
                           'Unknown'
                         end
+      end
+
+      # Gets the type of telemetry unit that sent the data.
+      #
+      # @return [String] telemetry unit
+      def telemetry_unit
+        @telemetry_unit ||= derive_telemetry_unit
+      end
+
+      def time_divisor
+        @time_divisor ||= case telemetry_unit
+                          when 'TM1000'
+                            256.0
+                          when 'TM1100'
+                            1024.0
+                          else
+                            1.0
+                          end
+      end
+
+      # Gets the difference between the last and the first timestamps.  May
+      # be zero if no records exist.
+      #
+      # @return [Number] difference between the last and first timestamp
+      def timestamp_delta
+        @timestamp_delta ||= @records.empty? ? 0.0 : (@records.last.timestamp - @records.first.timestamp)
       end
 
       def altimeter_records?
@@ -176,6 +202,13 @@ module Spektrum
       # @return [Boolean] true if there are valid records, false otherwise
       def any_records?(type)
         @records.any? { |rec| rec.is_a?(type) && rec.valid? }
+      end
+
+      def derive_telemetry_unit
+        return "None" unless basic_data_records? && flight_log_records?
+        key = [basic_data_records.first.type, flight_log_records.first.type]
+        types = { [0x7E, 0x7F] => 'TM1000', [0xFE, 0xFF] => 'TM1100' }
+        types.fetch(key, 'Unknown')
       end
 
       def select_records(type)
