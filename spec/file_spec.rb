@@ -4,7 +4,7 @@ describe Spektrum::Log::File do
 
   describe '#new' do
 
-    context 'data file 1.TLM' do
+    context 'with data file 1.TLM' do
 
       subject { Spektrum::Log::File.new(data_file('1.TLM')) }
 
@@ -14,7 +14,7 @@ describe Spektrum::Log::File do
 
     end
 
-    context 'data file 2.TLM' do
+    context 'with data file 2.TLM' do
 
       subject { Spektrum::Log::File.new(data_file('2.TLM')) }
 
@@ -24,7 +24,7 @@ describe Spektrum::Log::File do
 
     end
 
-    context 'data file 3.TLM' do
+    context 'with data file 3.TLM' do
 
       subject { Spektrum::Log::File.new(data_file('3.TLM')) }
 
@@ -34,7 +34,7 @@ describe Spektrum::Log::File do
 
     end
 
-    context 'data file 4.TLM' do
+    context 'with data file 4.TLM' do
 
       subject { Spektrum::Log::File.new(data_file('4.TLM')) }
 
@@ -44,7 +44,7 @@ describe Spektrum::Log::File do
 
     end
 
-    context 'data file GPS.TLM' do
+    context 'with data file GPS.TLM' do
 
       subject { Spektrum::Log::File.new(data_file('GPS.TLM')) }
 
@@ -54,7 +54,7 @@ describe Spektrum::Log::File do
 
     end
 
-    context 'data file GPS2.TLM' do
+    context 'with data file GPS2.TLM' do
 
       subject { Spektrum::Log::File.new(data_file('GPS2.TLM')) }
 
@@ -64,7 +64,7 @@ describe Spektrum::Log::File do
 
     end
 
-    context 'data file X5-GPS1.TLM' do
+    context 'with data file X5-GPS1.TLM' do
 
       subject { Spektrum::Log::File.new(data_file('X5-GPS1.TLM')) }
 
@@ -74,7 +74,7 @@ describe Spektrum::Log::File do
 
     end
 
-    context 'data file X5-GPS2.TLM' do
+    context 'with data file X5-GPS2.TLM' do
 
       subject { Spektrum::Log::File.new(data_file('X5-GPS2.TLM')) }
 
