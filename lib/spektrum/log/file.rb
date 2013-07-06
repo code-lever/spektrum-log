@@ -25,12 +25,11 @@ module Spektrum
 
         first_word = true
 
-#        puts uri
-
         open(uri, 'rb') do |file|
           loop do
             first4 = file.read(4)
 
+            # quick check to see if this could even be a Spektrum TLM file
             if first_word
               if first4.nil? || (0xFFFFFFFF != first4.unpack('V')[0])
                 raise ArgumentError, 'File does not appear to be an Spektrum log'

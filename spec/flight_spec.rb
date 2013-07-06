@@ -4,7 +4,7 @@ describe Spektrum::Log::Flight do
 
   context 'data file 1.TLM' do
 
-    let(:reader) { Spektrum::Log::Reader.new(data_file('1.TLM')) }
+    let(:reader) { Spektrum::Log::File.new(data_file('1.TLM')) }
 
     context 'flight 1' do
 
@@ -72,7 +72,7 @@ describe Spektrum::Log::Flight do
 
   context 'data file 2.TLM' do
 
-    let(:reader) { Spektrum::Log::Reader.new(data_file('2.TLM')) }
+    let(:reader) { Spektrum::Log::File.new(data_file('2.TLM')) }
 
     context 'flight 1' do
 
@@ -146,7 +146,7 @@ describe Spektrum::Log::Flight do
 
   context 'data file 3.TLM' do
 
-    let(:reader) { Spektrum::Log::Reader.new(data_file('3.TLM')) }
+    let(:reader) { Spektrum::Log::File.new(data_file('3.TLM')) }
 
     context 'flight 1' do
 
@@ -296,7 +296,7 @@ describe Spektrum::Log::Flight do
 
   context 'data file 4.TLM' do
 
-    let(:reader) { Spektrum::Log::Reader.new(data_file('4.TLM')) }
+    let(:reader) { Spektrum::Log::File.new(data_file('4.TLM')) }
 
     context 'flight 1' do
 
@@ -340,7 +340,7 @@ describe Spektrum::Log::Flight do
 
   context 'data file GPS.TLM' do
 
-    let(:reader) { Spektrum::Log::Reader.new(data_file('GPS.TLM')) }
+    let(:reader) { Spektrum::Log::File.new(data_file('GPS.TLM')) }
 
     context 'flight 1' do
 
@@ -386,7 +386,7 @@ describe Spektrum::Log::Flight do
 
   context 'data file GPS2.TLM' do
 
-    let(:reader) { Spektrum::Log::Reader.new(data_file('GPS2.TLM')) }
+    let(:reader) { Spektrum::Log::File.new(data_file('GPS2.TLM')) }
 
     context 'flight 1' do
 
@@ -430,7 +430,7 @@ describe Spektrum::Log::Flight do
 
   context 'data file X5-GPS1.TLM' do
 
-    let(:reader) { Spektrum::Log::Reader.new(data_file('X5-GPS1.TLM')) }
+    let(:reader) { Spektrum::Log::File.new(data_file('X5-GPS1.TLM')) }
 
     its 'flights should contain some gps coordinates' do
 
@@ -504,7 +504,7 @@ describe Spektrum::Log::Flight do
 
   context 'data file X5-GPS2.TLM' do
 
-    let(:reader) { Spektrum::Log::Reader.new(data_file('X5-GPS2.TLM')) }
+    let(:reader) { Spektrum::Log::File.new(data_file('X5-GPS2.TLM')) }
 
     its 'flights should contain some gps coordinates' do
 

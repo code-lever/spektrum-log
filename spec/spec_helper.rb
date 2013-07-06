@@ -22,9 +22,7 @@ end
 
 # root from spec/data
 def data_file(name)
-  path = File.expand_path("#{File.dirname(__FILE__)}/data/#{name}")
-  ap path
-  path
+  File.expand_path("#{File.dirname(__FILE__)}/data/#{name}")
 end
 
 def data_files
