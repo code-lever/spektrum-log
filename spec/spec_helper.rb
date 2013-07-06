@@ -21,6 +21,6 @@ RSpec.configure do |config|
 end
 
 def data_file(name)
-  path = Pathname.new("#{File.dirname(__FILE__)}/../data/#{name}")
+  path = Pathname.new("#{File.dirname(__FILE__)}/data/#{name}")
   path.realpath
 end
