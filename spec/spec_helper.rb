@@ -20,7 +20,19 @@ RSpec.configure do |config|
   config.order = 'random'
 end
 
+# root from spec/data
 def data_file(name)
-  path = Pathname.new("#{File.dirname(__FILE__)}/data/#{name}")
-  path.realpath
+  File.expand_path("#{File.dirname(__FILE__)}/data/#{name}")
+end
+
+def data_files
+  dir = "#{File.dirname(__FILE__)}/data/#{dir}"
+  Dir.glob("#{dir}/*").select { |e| File.file? e }
+end
+
+def invalid_data_files
+  dir = "#{File.dirname(__FILE__)}/data/invalid"
+  invalid = Dir.glob("#{dir}/**/*").select { |e| File.file? e }
+  invalid << __FILE__
+  invalid << 'NOFILE.TLM'
 end
