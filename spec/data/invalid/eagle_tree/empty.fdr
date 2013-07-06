@@ -1,0 +1,5 @@
+Skywalker
+0 0 0 255 1 0 0 0 255 1 254 0 0 1 0 0 0 255 0 0 0 1 0 74 1536 10.04 536588 0 262228
+All Sessions
+0 0
+Milliseconds IsEvent EventError EventData Altitude Airspeed ServoCurrent*100 Throttle PackVolt*100 Amps*100 GForceX*100  GForceY*100 GForceZ*100 Temp1*10 Temp2*10 Temp3*10 RPM RPM2 GPSLat GPSLon GPSAlt GPSSpeed GPSCourse GPSDist GPSUTC NumSats GPSFlags SpektrumHolds SpektrumLostFrames SpektrumAFades SpektrumBFades SpektrumLeftFades SpektrumRightFades GPSUTC-ASCII HDOP*10
