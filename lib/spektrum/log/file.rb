@@ -3,9 +3,19 @@ require 'open-uri'
 module Spektrum
   module Log
 
-    class Reader
+    class File
 
       attr_reader :records, :flights
+
+      # Determines if the file at the given URI is a Spektrum telemetry log file.
+      # If it is desired to read the file, #new should be used in favor of this, catching any
+      # errors that may be raised.
+      #
+      # @param uri URI to file to read
+      # @return [Boolean] true if the file is a Spektrum log file, false otherwise
+      def self.spektrum? uri
+        !!File.new(uri) rescue false
+      end
 
       def initialize uri
         headers = []
@@ -13,9 +23,21 @@ module Spektrum
         records = []
         @flights = []
 
+        first_word = true
+
+#        puts uri
+
         open(uri, 'rb') do |file|
           loop do
             first4 = file.read(4)
+
+            if first_word
+              if first4.nil? || (0xFFFFFFFF != first4.unpack('V')[0])
+                raise ArgumentError, 'File does not appear to be an Spektrum log'
+              end
+              first_word = false
+            end
+
             if first4.nil?
               if headers_complete || !records.empty?
                 # we have records, this is a new entry

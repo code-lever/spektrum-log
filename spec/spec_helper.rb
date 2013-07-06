@@ -22,12 +22,19 @@ end
 
 # root from spec/data
 def data_file(name)
-  path = Pathname.new("#{File.dirname(__FILE__)}/data/#{name}")
-  path.realpath
+  path = File.expand_path("#{File.dirname(__FILE__)}/data/#{name}")
+  ap path
+  path
 end
 
-# root from spec/data
-def data_files(dir = '.')
+def data_files
   dir = "#{File.dirname(__FILE__)}/data/#{dir}"
-  Dir.new(dir).map {|e| Pathname.new("#{dir}/#{e}").realpath }.select { |e| File.file? e }
+  Dir.glob("#{dir}/*").select { |e| File.file? e }
+end
+
+def invalid_data_files
+  dir = "#{File.dirname(__FILE__)}/data/invalid"
+  invalid = Dir.glob("#{dir}/**/*").select { |e| File.file? e }
+  invalid << __FILE__
+  invalid << 'NOFILE.TLM'
 end
