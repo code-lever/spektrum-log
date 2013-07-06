@@ -20,7 +20,14 @@ RSpec.configure do |config|
   config.order = 'random'
 end
 
+# root from spec/data
 def data_file(name)
   path = Pathname.new("#{File.dirname(__FILE__)}/data/#{name}")
   path.realpath
+end
+
+# root from spec/data
+def data_files(dir = '.')
+  dir = "#{File.dirname(__FILE__)}/data/#{dir}"
+  Dir.new(dir).map {|e| Pathname.new("#{dir}/#{e}").realpath }.select { |e| File.file? e }
 end
