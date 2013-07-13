@@ -54,7 +54,7 @@ describe Spektrum::Log::GPSRecord1 do
 
     its(:latitude) { should be_within(0.000001).of(1.354086) }
 
-    its(:longitude) { should be_within(0.000001).of(103.861399) }
+    its(:longitude) { should be_within(0.000001).of(103.861340) }
 
   end
 
@@ -127,6 +127,20 @@ describe Spektrum::Log::GPSRecord1 do
     its(:latitude) { should be_within(0.000001).of(41.185205) }
 
     its(:longitude) { should be_within(0.000001).of(-96.009932) }
+
+  end
+
+  context 'data set 8' do
+
+    let(:raw_data) { ["16004231071411418561009661130839"].pack('H*') }
+
+    its(:altitude) { should be_within(0.1).of(1030.8) }
+
+    its(:heading) { should be_within(0.1).of(136.1)}
+
+    its(:latitude) { should be_within(0.000001).of(41.185678) }
+
+    its(:longitude) { should be_within(0.000001).of(-96.010308) }
 
   end
 
