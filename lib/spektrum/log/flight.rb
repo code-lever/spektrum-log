@@ -87,7 +87,7 @@ module Spektrum
                           when 'TM1000'
                             256.0
                           when 'TM1100'
-                            1024.0
+                            256.0
                           else
                             1.0
                           end

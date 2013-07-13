@@ -20,7 +20,7 @@ describe Spektrum::Log::File do
 
       it { should have(312).flights }
 
-      its(:duration) { should be_within(0.1).of(1570.7) }
+      its(:duration) { should be_within(0.1).of(3433.1) }
 
     end
 
@@ -30,7 +30,7 @@ describe Spektrum::Log::File do
 
       it { should have(12).flights }
 
-      its(:duration) { should be_within(0.1).of(144.8) }
+      its(:duration) { should be_within(0.1).of(579.5) }
 
     end
 
@@ -40,7 +40,7 @@ describe Spektrum::Log::File do
 
       it { should have(1).flights }
 
-      its(:duration) { should be_within(0.1).of(15.9) }
+      its(:duration) { should be_within(0.1).of(63.8) }
 
     end
 
@@ -61,6 +61,16 @@ describe Spektrum::Log::File do
       it { should have(2).flights }
 
       its(:duration) { should be_within(0.1).of(851.0) }
+
+    end
+
+    context 'with data file X5-G700.TLM' do
+
+      subject { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }
+
+      it { should have(3).flights }
+
+      its(:duration) { should be_within(0.1).of(972.9) }
 
     end
 
@@ -108,7 +118,7 @@ describe Spektrum::Log::File do
 
     it 'should be true for valid files' do
       files = data_files
-      files.should have(9).files
+      files.should have(10).files
 
       files.each do |f|
         Spektrum::Log::File.spektrum?(f).should be_true
