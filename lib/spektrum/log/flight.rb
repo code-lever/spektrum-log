@@ -22,7 +22,7 @@ module Spektrum
       #
       # @return [Float] duration of the flight, in seconds
       def duration
-        @duration ||= timestamp_delta / time_divisor
+        @duration ||= timestamp_delta / 256.0
       end
 
       # Determines if this flight has any data.  Models without telemetry
@@ -80,17 +80,6 @@ module Spektrum
       # @return [String] telemetry unit
       def telemetry_unit
         @telemetry_unit ||= derive_telemetry_unit
-      end
-
-      def time_divisor
-        @time_divisor ||= case telemetry_unit
-                          when 'TM1000'
-                            256.0
-                          when 'TM1100'
-                            256.0
-                          else
-                            1.0
-                          end
       end
 
       # Gets the difference between the last and the first timestamps.  May
