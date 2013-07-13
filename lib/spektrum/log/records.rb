@@ -299,6 +299,7 @@ module Spektrum
       # Gets the UTC 24-hour time.  In the format: 'HH:MM:SS:CS' (CS=centiseconds).
       #
       # @return [String] UTC 24-hour time
+      # @note This conversion has been verified via Spektrum STi
       def time
         elements = 7.downto(4).map { |i| hex_byte_field(i) }
         @time ||= "%.2i:%.2i:%.2i.%.2i" % elements
@@ -307,6 +308,7 @@ module Spektrum
       # Gets the number of satellites current visible and in-use.
       #
       # @return [Integer] number of active satellites
+      # @note This conversion has been verified via Spektrum STi
       def satellites
         @satellites ||= hex_byte_field(8)
       end
