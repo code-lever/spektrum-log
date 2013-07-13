@@ -277,7 +277,11 @@ module Spektrum
         super timestamp, raw_data
       end
 
-      # :knots, :mph, :kph
+      # Gets the speed, in desired unit.
+      #
+      # @param unit one of :knots, :mph, :kph to define desired unit
+      # @return [Float] speed in the desired unit
+      # @note This conversion has been verified via Spektrum STi
       def speed unit = :knots
         @speed ||= (hex_byte_field(3) * 100) + hex_byte_field(2)
         case unit
@@ -292,11 +296,17 @@ module Spektrum
         end
       end
 
+      # Gets the UTC 24-hour time.  In the format: 'HH:MM:SS:CS' (CS=centiseconds).
+      #
+      # @return [String] UTC 24-hour time
       def time
         elements = 7.downto(4).map { |i| hex_byte_field(i) }
         @time ||= "%.2i:%.2i:%.2i.%.2i" % elements
       end
 
+      # Gets the number of satellites current visible and in-use.
+      #
+      # @return [Integer] number of active satellites
       def satellites
         @satellites ||= hex_byte_field(8)
       end
