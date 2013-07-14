@@ -151,36 +151,38 @@ module Spektrum
       end
 
       def to_kml
-        unless to_kml?
-          raise RuntimeError, 'No coordinates available for KML path generation'
-        end
+        raise RuntimeError, 'No coordinates available for KML generation' unless to_kml?
+        to_kml_file.render
+      end
 
+      def to_kml_file
         kml = KMLFile.new
         kml.objects << KML::Document.new(
-          :name => 'NAME HERE',
-          :description => 'DESCRIPTION HERE',
+          :name => 'Spektrum TLM GPS Path',
+          :description => 'Flight paths for GPS telemetry data',
           :styles => [
             KML::Style.new(
               :id => 'yellowLineGreenPoly',
-              :line_style => KML::LineStyle.new(:color => '7f00ffff', :width => 4),
-              :poly_style => KML::PolyStyle.new(:color => '7f00ff00')
+              :line_style => KML::LineStyle.new(:color => '7F00FFFF', :width => 4),
+              :poly_style => KML::PolyStyle.new(:color => '7F00FF00')
             )
           ],
-          :features => [
-            KML::Placemark.new(
-              :name => 'Absolute Extruded',
-              :description => 'Transparent green wall with yellow outlines',
-              :style_url => '#yellowLineGreenPoly',
-              :geometry => KML::LineString.new(
-                :extrude => true,
-                :tessellate => true,
-                :altitude_mode => 'absolute',
-                :coordinates => gps1_records.map(&:coordinate).map { |c| c.join(',') }.join(' ')
-              )
-            )
-          ]
+          :features => [ to_kml_placemark ]
         )
-        kml.render
+        kml
+      end
+
+      def to_kml_placemark
+        KML::Placemark.new(
+          :name => "#{model_name} (#{duration.round(1)}s)",
+          :style_url => '#yellowLineGreenPoly',
+          :geometry => KML::LineString.new(
+            :extrude => true,
+            :tessellate => true,
+            :altitude_mode => 'absolute',
+            :coordinates => gps1_records.map(&:coordinate).map { |c| c.join(',') }.join(' ')
+          )
+        )
       end
 
       private
