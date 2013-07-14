@@ -4,11 +4,11 @@ describe Spektrum::Log::Flight do
 
   context 'with data file 1.TLM' do
 
-    let(:reader) { Spektrum::Log::File.new(data_file('1.TLM')) }
+    let(:file) { Spektrum::Log::File.new(data_file('1.TLM')) }
 
     context 'flight 1' do
 
-      subject { reader.flights[0] }
+      subject { file.flights[0] }
 
       it { should have(4).headers }
 
@@ -34,7 +34,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 2' do
 
-      subject { reader.flights[1] }
+      subject { file.flights[1] }
 
       it { should have(4).headers }
 
@@ -52,7 +52,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 3' do
 
-      subject { reader.flights[2] }
+      subject { file.flights[2] }
 
       it { should have(4).headers }
 
@@ -72,11 +72,11 @@ describe Spektrum::Log::Flight do
 
   context 'with data file 2.TLM' do
 
-    let(:reader) { Spektrum::Log::File.new(data_file('2.TLM')) }
+    let(:file) { Spektrum::Log::File.new(data_file('2.TLM')) }
 
     context 'flight 1' do
 
-      subject { reader.flights[0] }
+      subject { file.flights[0] }
 
       it { should have(5).headers }
 
@@ -102,7 +102,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 305' do
 
-      subject { reader.flights[304] }
+      subject { file.flights[304] }
 
       its(:model_name) { should eql('ERW|N XL ULTRALIGHT') }
 
@@ -114,7 +114,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 306' do
 
-      subject { reader.flights[305] }
+      subject { file.flights[305] }
 
       its(:model_name) { should eql('ERW|N XL ULTRALIGHT') }
 
@@ -124,7 +124,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 308' do
 
-      subject { reader.flights[307] }
+      subject { file.flights[307] }
 
       its(:model_name) { should eql('ERW|N XL ULTRALIGHT') }
 
@@ -134,7 +134,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 312' do
 
-      subject { reader.flights[311] }
+      subject { file.flights[311] }
 
       its(:model_name) { should eql('ERW|N XL ULTRALIGHT') }
 
@@ -146,11 +146,11 @@ describe Spektrum::Log::Flight do
 
   context 'with data file 3.TLM' do
 
-    let(:reader) { Spektrum::Log::File.new(data_file('3.TLM')) }
+    let(:file) { Spektrum::Log::File.new(data_file('3.TLM')) }
 
     context 'flight 1' do
 
-      subject { reader.flights[0] }
+      subject { file.flights[0] }
 
       it { should have(5).headers }
 
@@ -166,7 +166,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 2' do
 
-      subject { reader.flights[1] }
+      subject { file.flights[1] }
 
       it { should have(5).headers }
 
@@ -182,7 +182,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 3' do
 
-      subject { reader.flights[2] }
+      subject { file.flights[2] }
 
       it { should have(5).headers }
 
@@ -198,7 +198,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 4' do
 
-      subject { reader.flights[3] }
+      subject { file.flights[3] }
 
       it { should have(5).headers }
 
@@ -214,7 +214,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 5' do
 
-      subject { reader.flights[4] }
+      subject { file.flights[4] }
 
       it { should have(5).headers }
 
@@ -230,7 +230,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 6' do
 
-      subject { reader.flights[5] }
+      subject { file.flights[5] }
 
       it { should have(5).headers }
 
@@ -246,7 +246,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 7' do
 
-      subject { reader.flights[6] }
+      subject { file.flights[6] }
 
       it { should have(5).headers }
 
@@ -262,7 +262,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 8' do
 
-      subject { reader.flights[7] }
+      subject { file.flights[7] }
 
       it { should have(5).headers }
 
@@ -278,7 +278,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 9' do
 
-      subject { reader.flights[8] }
+      subject { file.flights[8] }
 
       it { should have(5).headers }
 
@@ -296,11 +296,11 @@ describe Spektrum::Log::Flight do
 
   context 'with data file 4.TLM' do
 
-    let(:reader) { Spektrum::Log::File.new(data_file('4.TLM')) }
+    let(:file) { Spektrum::Log::File.new(data_file('4.TLM')) }
 
     context 'flight 1' do
 
-      subject { reader.flights[0] }
+      subject { file.flights[0] }
 
       it { should have(5).headers }
 
@@ -340,11 +340,11 @@ describe Spektrum::Log::Flight do
 
   context 'with data file GPS.TLM' do
 
-    let(:reader) { Spektrum::Log::File.new(data_file('GPS.TLM')) }
+    let(:file) { Spektrum::Log::File.new(data_file('GPS.TLM')) }
 
     context 'flight 1' do
 
-      subject { reader.flights[0] }
+      subject { file.flights[0] }
 
       its(:duration) { should be_within(1).of(697) }
 
@@ -364,7 +364,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 2' do
 
-      subject { reader.flights[1] }
+      subject { file.flights[1] }
 
       its(:duration) { should be_within(1).of(733) }
 
@@ -386,11 +386,11 @@ describe Spektrum::Log::Flight do
 
   context 'with data file GPS2.TLM' do
 
-    let(:reader) { Spektrum::Log::File.new(data_file('GPS2.TLM')) }
+    let(:file) { Spektrum::Log::File.new(data_file('GPS2.TLM')) }
 
     context 'flight 1' do
 
-      subject { reader.flights[0] }
+      subject { file.flights[0] }
 
       its(:duration) { should be_within(1).of(503) }
 
@@ -410,7 +410,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 2' do
 
-      subject { reader.flights[1] }
+      subject { file.flights[1] }
 
       its(:duration) { should be_within(1).of(347) }
 
@@ -430,11 +430,11 @@ describe Spektrum::Log::Flight do
 
   context 'with data file X5-G700.TLM' do
 
-    let(:reader) { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }
+    let(:file) { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }
 
     context 'flight 1' do
 
-      subject { reader.flights[0] }
+      subject { file.flights[0] }
 
       its(:duration) { should be_within(0.1).of(323.6) }
 
@@ -444,7 +444,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 2' do
 
-      subject { reader.flights[1] }
+      subject { file.flights[1] }
 
       its(:duration) { should be_within(0.1).of(323.8) }
 
@@ -454,7 +454,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 3' do
 
-      subject { reader.flights[2] }
+      subject { file.flights[2] }
 
       its(:duration) { should be_within(0.1).of(325.5) }
 
@@ -466,17 +466,17 @@ describe Spektrum::Log::Flight do
 
   context 'with data file X5-GPS1.TLM' do
 
-    let(:reader) { Spektrum::Log::File.new(data_file('X5-GPS1.TLM')) }
+    let(:file) { Spektrum::Log::File.new(data_file('X5-GPS1.TLM')) }
 
     its 'flights should contain some gps coordinates' do
 
-      reader.flights.select { |f| f.gps1_records? }.should have(4).flights
+      file.flights.select { |f| f.gps1_records? }.should have(4).flights
 
     end
 
     its 'longitudes should all be negative' do
 
-      reader.flights.each do |flight|
+      file.flights.each do |flight|
 
         flight.gps1_records.each do |gps1|
           gps1.longitude.should be < 0.0
@@ -488,7 +488,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 1' do
 
-      subject { reader.flights[0] }
+      subject { file.flights[0] }
 
       its(:duration) { should be_within(0.1).of(318.6) }
 
@@ -498,7 +498,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 2' do
 
-      subject { reader.flights[1] }
+      subject { file.flights[1] }
 
       its(:duration) { should be_within(0.1).of(327.5) }
 
@@ -508,7 +508,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 3' do
 
-      subject { reader.flights[2] }
+      subject { file.flights[2] }
 
       its(:duration) { should be_within(0.1).of(326.5) }
 
@@ -518,7 +518,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 4' do
 
-      subject { reader.flights[3] }
+      subject { file.flights[3] }
 
       its(:duration) { should eql(0.0) }
 
@@ -528,7 +528,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 5' do
 
-      subject { reader.flights[4] }
+      subject { file.flights[4] }
 
       its(:duration) { should be_within(0.1).of(332.6) }
 
@@ -540,17 +540,17 @@ describe Spektrum::Log::Flight do
 
   context 'with data file X5-GPS2.TLM' do
 
-    let(:reader) { Spektrum::Log::File.new(data_file('X5-GPS2.TLM')) }
+    let(:file) { Spektrum::Log::File.new(data_file('X5-GPS2.TLM')) }
 
     its 'flights should contain some gps coordinates' do
 
-      reader.flights.select { |f| f.gps1_records? }.should have(2).flights
+      file.flights.select { |f| f.gps1_records? }.should have(2).flights
 
     end
 
     its 'longitudes should all be negative' do
 
-      reader.flights.each do |flight|
+      file.flights.each do |flight|
 
         flight.gps1_records.each do |gps1|
           gps1.longitude.should be < 0.0
@@ -562,7 +562,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 1' do
 
-      subject { reader.flights[0] }
+      subject { file.flights[0] }
 
       its(:duration) { should be_within(0.1).of(328.6) }
 
@@ -574,7 +574,7 @@ describe Spektrum::Log::Flight do
 
     context 'flight 2' do
 
-      subject { reader.flights[1] }
+      subject { file.flights[1] }
 
       its(:duration) { should be_within(0.1).of(299.1) }
 
@@ -586,11 +586,11 @@ describe Spektrum::Log::Flight do
 
   describe '#to_kml_file' do
 
-    let(:reader) { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }
+    let(:file) { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }
 
     context 'with flight 1' do
 
-      subject { reader.flights[0] }
+      subject { file.flights[0] }
 
       its(:to_kml_file) { should be_a(KMLFile) }
 
@@ -604,7 +604,7 @@ describe Spektrum::Log::Flight do
 
     context 'with flight 2' do
 
-      subject { reader.flights[1] }
+      subject { file.flights[1] }
 
       it 'should raise w/o kml data' do
         expect { subject.to_kml_file }.to raise_error
@@ -614,7 +614,7 @@ describe Spektrum::Log::Flight do
 
     context 'with flight 3' do
 
-      subject { reader.flights[2] }
+      subject { file.flights[2] }
 
       its(:to_kml_file) { should be_a(KMLFile) }
 
@@ -624,11 +624,11 @@ describe Spektrum::Log::Flight do
 
   describe '#to_kml_placemark' do
 
-    let(:reader) { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }
+    let(:file) { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }
 
     context 'with flight 1' do
 
-      subject { reader.flights[0] }
+      subject { file.flights[0] }
 
       its(:to_kml_placemark) { should be_a(KML::Placemark) }
 
@@ -636,7 +636,7 @@ describe Spektrum::Log::Flight do
 
     context 'with flight 2' do
 
-      subject { reader.flights[1] }
+      subject { file.flights[1] }
 
       it 'should raise w/o kml data' do
         expect { subject.to_kml_placemark }.to raise_error
@@ -646,7 +646,7 @@ describe Spektrum::Log::Flight do
 
     context 'with flight 3' do
 
-      subject { reader.flights[2] }
+      subject { file.flights[2] }
 
       its(:to_kml_placemark) { should be_a(KML::Placemark) }
 
