@@ -79,6 +79,13 @@ module Spektrum
         @flights.map(&:duration).reduce(&:+)
       end
 
+      # Determines if KML methods can be called for this file.
+      #
+      # @return [Boolean] true if KML can be generated for this file, false otherwise
+      def to_kml?
+        @flights.any?(&:to_kml?)
+      end
+
     end
 
   end

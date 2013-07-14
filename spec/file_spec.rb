@@ -127,4 +127,24 @@ describe Spektrum::Log::File do
 
   end
 
+  describe '#to_kml_file' do
+
+    context 'with file with GPS data' do
+
+      subject { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }
+
+      its(:to_kml?) { should be_true }
+
+    end
+
+    context 'with file without GPS data' do
+
+      subject { Spektrum::Log::File.new(data_file('3.TLM')) }
+
+      its(:to_kml?) { should be_false }
+
+    end
+
+  end
+
 end
