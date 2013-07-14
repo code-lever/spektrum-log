@@ -87,7 +87,7 @@ module Spektrum
       end
 
       # Converts the file into a KML document containing placemarks for each
-      # flight containing GPS data in this file.
+      # flight containing GPS data.
       #
       # @param options [Hash] hash containing options for file
       # @return [String] KML document for all applicable flights in the file
@@ -97,7 +97,8 @@ module Spektrum
         to_kml_file(options).render
       end
 
-      # Converts the flight into a KMLFile containing a placemark for this flight.
+      # Converts the file into a KMLFile containing placemarks for each flight containing
+      # GPS data.
       #
       # @param options [Hash] hash containing options for file
       # @option options [String] :name name option of KML::Document
