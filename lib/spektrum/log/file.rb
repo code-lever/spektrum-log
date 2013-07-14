@@ -86,6 +86,55 @@ module Spektrum
         @flights.any?(&:to_kml?)
       end
 
+      # Converts the file into a KML document containing placemarks for each
+      # flight containing GPS data in this file.
+      #
+      # @param options [Hash] hash containing options for file
+      # @return [String] KML document for all applicable flights in the file
+      # @see #to_kml_file file options
+      def to_kml(options = {})
+        raise RuntimeError, 'No coordinates available for KML generation' unless to_kml?
+        to_kml_file(options).render
+      end
+
+      # Converts the flight into a KMLFile containing a placemark for this flight.
+      #
+      # @param options [Hash] hash containing options for file
+      # @option options [String] :name name option of KML::Document
+      # @option options [String] :description name option of KML::Document
+      # @return [KMLFile] file for the flight
+      def to_kml_file(options = {})
+        raise RuntimeError, 'No coordinates available for KML generation' unless to_kml?
+        options = apply_default_file_options(options)
+
+        style = 'kmlfile-style-id'
+        kml_flights = @flights.select(&:to_kml?)
+        marks = kml_flights.each_with_object({ :style_url => "##{style}" }).map(&:to_kml_placemark)
+
+        kml = KMLFile.new
+        kml.objects << KML::Document.new(
+          :name => options[:name],
+          :description => options[:description],
+          :styles => [
+            KML::Style.new(
+              :id => style,
+              :line_style => KML::LineStyle.new(:color => '7F00FFFF', :width => 4),
+              :poly_style => KML::PolyStyle.new(:color => '7F00FF00')
+            )
+          ],
+          :features => marks
+        )
+        kml
+      end
+
+      private
+
+      def apply_default_file_options options
+        options = { :name => 'Spektrum TLM GPS Path' }.merge(options)
+        options = { :description => 'Flight paths for GPS telemetry data' }.merge(options)
+        options
+      end
+
     end
 
   end

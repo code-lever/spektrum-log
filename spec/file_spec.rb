@@ -135,6 +135,8 @@ describe Spektrum::Log::File do
 
       its(:to_kml?) { should be_true }
 
+      its(:to_kml) { should be_a(String) }
+
     end
 
     context 'with file without GPS data' do
@@ -142,6 +144,10 @@ describe Spektrum::Log::File do
       subject { Spektrum::Log::File.new(data_file('3.TLM')) }
 
       its(:to_kml?) { should be_false }
+
+      it 'should raise w/o kml data' do
+        expect { subject.to_kml }.to raise_error
+      end
 
     end
 
