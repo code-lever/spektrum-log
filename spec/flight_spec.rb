@@ -568,6 +568,8 @@ describe Spektrum::Log::Flight do
 
       its(:telemetry_unit) { should == 'TM1000' }
 
+      its(:to_kml?) { should be_true }
+
     end
 
     context 'flight 2' do
@@ -577,6 +579,76 @@ describe Spektrum::Log::Flight do
       its(:duration) { should be_within(0.1).of(299.1) }
 
       its(:telemetry_unit) { should == 'TM1000' }
+
+    end
+
+  end
+
+  describe '#to_kml_file' do
+
+    let(:reader) { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }
+
+    context 'with flight 1' do
+
+      subject { reader.flights[0] }
+
+      its(:to_kml_file) { should be_a(KMLFile) }
+
+      it 'should take options for file and placemark' do
+        kml = subject.to_kml_file({ :name => 'File Name' }, { :name => 'Placemark Name' })
+        kml.objects[0].name.should eql('File Name')
+        kml.objects[0].features[0].name.should eql('Placemark Name')
+      end
+
+    end
+
+    context 'with flight 2' do
+
+      subject { reader.flights[1] }
+
+      it 'should raise w/o kml data' do
+        expect { subject.to_kml_file }.to raise_error
+      end
+
+    end
+
+    context 'with flight 3' do
+
+      subject { reader.flights[2] }
+
+      its(:to_kml_file) { should be_a(KMLFile) }
+
+    end
+
+  end
+
+  describe '#to_kml_placemark' do
+
+    let(:reader) { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }
+
+    context 'with flight 1' do
+
+      subject { reader.flights[0] }
+
+      its(:to_kml_placemark) { should be_a(KML::Placemark) }
+
+    end
+
+    context 'with flight 2' do
+
+      subject { reader.flights[1] }
+
+      it 'should raise w/o kml data' do
+        expect { subject.to_kml_placemark }.to raise_error
+      end
+
+    end
+
+    context 'with flight 3' do
+
+      subject { reader.flights[2] }
+
+      its(:to_kml_placemark) { should be_a(KML::Placemark) }
 
     end
 

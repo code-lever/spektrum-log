@@ -146,40 +146,74 @@ module Spektrum
         select_records SpeedRecord
       end
 
+      # Determines if KML methods can be called for this flight.
+      #
+      # @return [Boolean] true if KML can be generated for this flight, false otherwise
       def to_kml?
         gps1_records?
       end
 
-      def to_kml
+      # Converts the flight into a KML document containing a placemark for this flight.
+      #
+      # @param file_options [Hash] hash containing options for file
+      # @param placemark_options [Hash] hash containing options for placemark
+      # @return [String] KML document for the flight
+      # @see #to_kml_file file options
+      # @see #to_kml_placemark placemark options
+      def to_kml(file_options = {}, placemark_options = {})
         raise RuntimeError, 'No coordinates available for KML generation' unless to_kml?
         to_kml_file.render
       end
 
-      def to_kml_file
+      # Converts the flight into a KMLFile containing a placemark for this flight.
+      #
+      # @param file_options [Hash] hash containing options for file
+      # @option file_options [String] :name name option of KML::Document
+      # @option file_options [String] :description name option of KML::Document
+      # @option file_options [String] :style_id id option of KML::Style
+      # @param placemark_options [Hash] hash containing options for placemark
+      # @return [KMLFile] file for the flight
+      # @see #to_kml_placemark placemark options
+      def to_kml_file(file_options = {}, placemark_options = {})
+        raise RuntimeError, 'No coordinates available for KML generation' unless to_kml?
+        options = apply_default_file_options(file_options)
+
         kml = KMLFile.new
         kml.objects << KML::Document.new(
-          :name => 'Spektrum TLM GPS Path',
-          :description => 'Flight paths for GPS telemetry data',
+          :name => options[:name],
+          :description => options[:description],
           :styles => [
             KML::Style.new(
-              :id => 'yellowLineGreenPoly',
+              :id => options[:style_id],
               :line_style => KML::LineStyle.new(:color => '7F00FFFF', :width => 4),
               :poly_style => KML::PolyStyle.new(:color => '7F00FF00')
             )
           ],
-          :features => [ to_kml_placemark ]
+          :features => [ to_kml_placemark(placemark_options) ]
         )
         kml
       end
 
-      def to_kml_placemark
+      # Converts the flight into a KML::Placemark containing GPS coordinates.
+      #
+      # @param options [Hash] hash containing options for placemark
+      # @option options [String] :altitude_mode altitude_mode option of KML::LineString
+      # @option options [Boolean] :extrude extrude option of KML::LineString
+      # @option options [String] :name name option of KML::Placemark
+      # @option options [String] :style_url style_url option of KML::Placemark
+      # @option options [Boolean] :tessellate tessellate option of KML::LineString
+      # @return [KML::Placemark] placemark for the flight
+      def to_kml_placemark(options = {})
+        raise RuntimeError, 'No coordinates available for KML generation' unless to_kml?
+        options = apply_default_placemark_options(options)
+
         KML::Placemark.new(
-          :name => "#{model_name} (#{duration.round(1)}s)",
-          :style_url => '#yellowLineGreenPoly',
+          :name => options[:name],
+          :style_url => options[:style_url],
           :geometry => KML::LineString.new(
-            :extrude => true,
-            :tessellate => true,
-            :altitude_mode => 'absolute',
+            :altitude_mode => options[:altitude_mode],
+            :extrude => options[:extrude],
+            :tessellate => options[:tessellate],
             :coordinates => gps1_records.map(&:coordinate).map { |c| c.join(',') }.join(' ')
           )
         )
@@ -189,10 +223,26 @@ module Spektrum
 
       # Determines if there are any records in this flight of the given type.
       #
-      # @param type [Class] type of record to check for
+      # @param [Class] type type of record to check for
       # @return [Boolean] true if there are valid records, false otherwise
       def any_records?(type)
         @records.any? { |rec| rec.is_a?(type) && rec.valid? }
+      end
+
+      def apply_default_file_options options
+        options = { :name => 'Spektrum TLM GPS Path' }.merge(options)
+        options = { :description => 'Flight paths for GPS telemetry data' }.merge(options)
+        options = { :style_id => 'default-poly-style' }.merge(options)
+        options
+      end
+
+      def apply_default_placemark_options options
+        options = { :altitude_mode => 'absolute' }.merge(options)
+        options = { :extrude => true }.merge(options)
+        options = { :name => "#{model_name} (#{duration.round(1)}s)" }.merge(options)
+        options = { :style_url => '#default-poly-style' }.merge(options)
+        options = { :tessellate => true }.merge(options)
+        options
       end
 
       def derive_telemetry_unit
