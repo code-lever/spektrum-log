@@ -127,7 +127,7 @@ describe Spektrum::Log::File do
 
   end
 
-  describe '#to_kml_file' do
+  describe '#to_kml' do
 
     context 'with file with GPS data' do
 
@@ -147,6 +147,33 @@ describe Spektrum::Log::File do
 
       it 'should raise w/o kml data' do
         expect { subject.to_kml }.to raise_error
+      end
+
+    end
+
+  end
+
+  describe '#to_kml_file' do
+
+    context 'with file with GPS data' do
+
+      subject { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }
+
+      its(:to_kml_file) { should be_a(KMLFile) }
+
+      it 'should take options for file and placemark' do
+        kml = subject.to_kml_file({ :name => 'File Name' })
+        kml.objects[0].name.should eql('File Name')
+      end
+
+    end
+
+    context 'with file without GPS data' do
+
+      subject { Spektrum::Log::File.new(data_file('3.TLM')) }
+
+      it 'should raise w/o kml data' do
+        expect { subject.to_kml_file }.to raise_error
       end
 
     end
