@@ -584,6 +584,44 @@ describe Spektrum::Log::Flight do
 
   end
 
+  describe '#to_kml' do
+
+    let(:file) { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }
+
+    context 'with flight 1' do
+
+      subject { file.flights[0] }
+
+      its(:to_kml) { should be_a(String) }
+
+      it 'should take options for file and placemark' do
+        kml = subject.to_kml_file({ :name => 'File Name' }, { :name => 'Placemark Name' })
+        kml.objects[0].name.should eql('File Name')
+        kml.objects[0].features[0].name.should eql('Placemark Name')
+      end
+
+    end
+
+    context 'with flight 2' do
+
+      subject { file.flights[1] }
+
+      it 'should raise w/o kml data' do
+        expect { subject.to_kml }.to raise_error
+      end
+
+    end
+
+    context 'with flight 3' do
+
+      subject { file.flights[2] }
+
+      its(:to_kml) { should be_a(String) }
+
+    end
+
+  end
+
   describe '#to_kml_file' do
 
     let(:file) { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }

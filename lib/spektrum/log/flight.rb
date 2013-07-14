@@ -162,7 +162,7 @@ module Spektrum
       # @see #to_kml_placemark placemark options
       def to_kml(file_options = {}, placemark_options = {})
         raise RuntimeError, 'No coordinates available for KML generation' unless to_kml?
-        to_kml_file.render
+        to_kml_file(file_options, placemark_options).render
       end
 
       # Converts the flight into a KMLFile containing a placemark for this flight.
