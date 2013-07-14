@@ -594,12 +594,6 @@ describe Spektrum::Log::Flight do
 
       its(:to_kml) { should be_a(String) }
 
-      it 'should take options for file and placemark' do
-        kml = subject.to_kml_file({ :name => 'File Name' }, { :name => 'Placemark Name' })
-        kml.objects[0].name.should eql('File Name')
-        kml.objects[0].features[0].name.should eql('Placemark Name')
-      end
-
     end
 
     context 'with flight 2' do
