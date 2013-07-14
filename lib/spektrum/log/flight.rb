@@ -153,7 +153,7 @@ module Spektrum
         gps1_records?
       end
 
-      # Converts the flight into a KML document containing a placemark for this flight.
+      # Converts the flight into a KML document containing a placemark.
       #
       # @param file_options [Hash] hash containing options for file
       # @param placemark_options [Hash] hash containing options for placemark
@@ -165,7 +165,7 @@ module Spektrum
         to_kml_file(file_options, placemark_options).render
       end
 
-      # Converts the flight into a KMLFile containing a placemark for this flight.
+      # Converts the flight into a KMLFile containing a placemark.
       #
       # @param file_options [Hash] hash containing options for file
       # @option file_options [String] :name name option of KML::Document
