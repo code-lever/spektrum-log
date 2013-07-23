@@ -83,10 +83,17 @@ module Spektrum
         raw_rpm != 0xFFFF
       end
 
+      # Gets the flight pack voltage data.
+      #
+      # @return [Float] flight voltage data, in volts
+      # @note This conversion has been verified via Spektrum STi
       def voltage
         raw_voltage / 100.0
       end
 
+      # Determines if there is flight voltage data contained within.
+      #
+      # @return [Boolean] true if there is flight voltage data, false otherwise
       def voltage?
         raw_voltage != 0xFFFF
       end
@@ -128,6 +135,7 @@ module Spektrum
       # Gets the receiver pack voltage data.
       #
       # @return [Float] rx voltage data, in volts
+      # @note This conversion has been verified via Spektrum STi
       def rx_voltage
         raw_rx_voltage / 100.0
       end
