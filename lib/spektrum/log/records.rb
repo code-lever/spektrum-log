@@ -323,22 +323,36 @@ module Spektrum
 
     end
 
-    class MysteryRecord < Record
-
-      def initialize timestamp, raw_data
-        super timestamp, raw_data
-      end
-
-    end
-
     class SpeedRecord < Record
 
       def initialize timestamp, raw_data
         super timestamp, raw_data
       end
 
-      def speed
+      # Gets the speed, in desired unit.
+      #
+      # @param unit one of :knots, :mph, :kph to define desired unit
+      # @return [Float] speed in the desired unit
+      def speed(unit = :knots)
         @speed ||= two_byte_field(2..3)
+        case unit
+        when :knots
+          @speed * 0.539957
+        when :mph
+          @speed * 0.621371
+        when :kph
+          @speed
+        else
+          @speed
+        end
+      end
+
+    end
+
+    class MysteryRecord < Record
+
+      def initialize timestamp, raw_data
+        super timestamp, raw_data
       end
 
     end
