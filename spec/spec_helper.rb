@@ -36,3 +36,14 @@ def invalid_data_files
   invalid << __FILE__
   invalid << 'NOFILE.TLM'
 end
+
+def _1_tlm; Spektrum::Log::File.new(data_file('1.TLM')) end
+def _2_tlm; Spektrum::Log::File.new(data_file('2.TLM')) end
+def _3_tlm; Spektrum::Log::File.new(data_file('3.TLM')) end
+def _4_tlm; Spektrum::Log::File.new(data_file('4.TLM')) end
+def gps_tlm; Spektrum::Log::File.new(data_file('GPS.TLM')) end
+def gps2_tlm; Spektrum::Log::File.new(data_file('GPS2.TLM')) end
+def x5_g700_tlm; Spektrum::Log::File.new(data_file('X5-G700.TLM')) end
+def x5_gps1_tlm; Spektrum::Log::File.new(data_file('X5-GPS1.TLM')) end
+def x5_gps2_tlm; Spektrum::Log::File.new(data_file('X5-GPS2.TLM')) end
+def x5_gps3_tlm; Spektrum::Log::File.new(data_file('X5-GPS3.TLM')) end

@@ -6,7 +6,9 @@ describe Spektrum::Log::File do
 
     context 'with data file 1.TLM' do
 
-      subject { Spektrum::Log::File.new(data_file('1.TLM')) }
+      before(:all) { @file = _1_tlm }
+
+      subject { @file }
 
       it { should have(3).flights }
 
@@ -16,7 +18,9 @@ describe Spektrum::Log::File do
 
     context 'with data file 2.TLM' do
 
-      subject { Spektrum::Log::File.new(data_file('2.TLM')) }
+      before(:all) { @file = _2_tlm }
+
+      subject { @file }
 
       it { should have(312).flights }
 
@@ -26,7 +30,9 @@ describe Spektrum::Log::File do
 
     context 'with data file 3.TLM' do
 
-      subject { Spektrum::Log::File.new(data_file('3.TLM')) }
+      before(:all) { @file = _3_tlm }
+
+      subject { @file }
 
       it { should have(12).flights }
 
@@ -36,7 +42,9 @@ describe Spektrum::Log::File do
 
     context 'with data file 4.TLM' do
 
-      subject { Spektrum::Log::File.new(data_file('4.TLM')) }
+      before(:all) { @file = _4_tlm }
+
+      subject { @file }
 
       it { should have(1).flights }
 
@@ -46,7 +54,9 @@ describe Spektrum::Log::File do
 
     context 'with data file GPS.TLM' do
 
-      subject { Spektrum::Log::File.new(data_file('GPS.TLM')) }
+      before(:all) { @file = gps_tlm }
+
+      subject { @file }
 
       it { should have(2).flights }
 
@@ -56,7 +66,9 @@ describe Spektrum::Log::File do
 
     context 'with data file GPS2.TLM' do
 
-      subject { Spektrum::Log::File.new(data_file('GPS2.TLM')) }
+      before(:all) { @file = gps2_tlm }
+
+      subject { @file }
 
       it { should have(2).flights }
 
@@ -66,7 +78,9 @@ describe Spektrum::Log::File do
 
     context 'with data file X5-G700.TLM' do
 
-      subject { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }
+      before(:all) { @file = x5_g700_tlm }
+
+      subject { @file }
 
       it { should have(3).flights }
 
@@ -76,7 +90,9 @@ describe Spektrum::Log::File do
 
     context 'with data file X5-GPS1.TLM' do
 
-      subject { Spektrum::Log::File.new(data_file('X5-GPS1.TLM')) }
+      before(:all) { @file = x5_gps1_tlm }
+
+      subject { @file }
 
       it { should have(5).flights }
 
@@ -86,7 +102,9 @@ describe Spektrum::Log::File do
 
     context 'with data file X5-GPS2.TLM' do
 
-      subject { Spektrum::Log::File.new(data_file('X5-GPS2.TLM')) }
+      before(:all) { @file = x5_gps2_tlm }
+
+      subject { @file }
 
       it { should have(2).flights }
 
