@@ -12,9 +12,9 @@ module Spektrum
       # errors that may be raised.
       #
       # @param uri URI to file to read
-      # @return [Boolean] true if the file is a Spektrum log file, false otherwise
+      # @return [Spektrum::Log::File] loaded file if the file is a Spektrum log file, nil otherwise
       def self.spektrum? uri
-        !!File.new(uri) rescue false
+        File.new(uri) rescue nil
       end
 
       def initialize uri
