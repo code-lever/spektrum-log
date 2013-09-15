@@ -7,9 +7,7 @@ module Spektrum
 
       attr_reader :records, :flights
 
-      # Determines if the file at the given URI is a Spektrum telemetry log file.  If one intends
-      # to read the file, simply using #new should be preferred in favor of this, catching any
-      # errors that may be raised.
+      # Determines if the file at the given URI is a Spektrum telemetry log file.
       #
       # @param uri URI to file to read
       # @return [Spektrum::Log::File] loaded file if the file is a Spektrum log file, nil otherwise

@@ -143,6 +143,14 @@ describe Spektrum::Log::File do
       end
     end
 
+    it 'should return a file object when valid' do
+      expect(Spektrum::Log::File.spektrum?(data_files[0])).to be_a(Spektrum::Log::File)
+    end
+
+    it 'should return nil when invalid' do
+      expect(Spektrum::Log::File.spektrum?(invalid_data_files[0])).to be_nil
+    end
+
   end
 
   describe '#to_kml' do
