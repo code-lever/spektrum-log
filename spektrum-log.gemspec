@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["nick@codelever.com"]
   spec.description   = %q{Read and interpret Spektrum TLM log files.}
   spec.summary       = %q{Spektrum TLM log file reader}
-  spec.homepage      = ""
+  spec.homepage      = "http://github.com/code-lever/spektrum-log"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
