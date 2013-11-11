@@ -11,11 +11,11 @@ module Spektrum
       #
       # @param uri URI to file to read
       # @return [Spektrum::Log::File] loaded file if the file is a Spektrum log file, nil otherwise
-      def self.spektrum? uri
+      def self.spektrum?(uri)
         File.new(uri) rescue nil
       end
 
-      def initialize uri
+      def initialize(uri)
         headers = []
         headers_complete = false
         records = []
@@ -128,7 +128,7 @@ module Spektrum
 
       private
 
-      def apply_default_file_options options
+      def apply_default_file_options(options)
         options = { :name => 'Spektrum TLM GPS Path' }.merge(options)
         options = { :description => 'Flight paths for GPS telemetry data' }.merge(options)
         options

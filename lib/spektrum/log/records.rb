@@ -6,7 +6,7 @@ module Spektrum
 
       attr_reader :timestamp
 
-      def initialize timestamp, raw_data
+      def initialize(timestamp, raw_data)
         if raw_data.length != 16
           raise ArgumentError, "raw_data incorrectly sized (#{raw_data.length})"
         end
@@ -35,23 +35,23 @@ module Spektrum
 
       protected
 
-      def byte_field range
+      def byte_field(range)
         @raw_data[range].unpack('C')[0]
       end
 
-      def hex_byte_field range
+      def hex_byte_field(range)
         @raw_data[range].unpack('H*')[0].to_i
       end
 
-      def hex_string_field range
+      def hex_string_field(range)
         @raw_data[range].unpack('H*')[0]
       end
 
-      def two_byte_field range, endian = :big
+      def two_byte_field(range, endian = :big)
         @raw_data[range].unpack(endian == :big ? 'n' : 'v')[0]
       end
 
-      def four_byte_field range, endian = :big
+      def four_byte_field(range, endian = :big)
         @raw_data[range].unpack(endian == :big ? 'N' : 'V')[0]
       end
 
@@ -59,7 +59,7 @@ module Spektrum
 
     class AltimeterRecord < Record
 
-      def initialize timestamp, raw_data
+      def initialize(timestamp, raw_data)
         super timestamp, raw_data
       end
 
@@ -71,11 +71,11 @@ module Spektrum
 
     class BasicDataRecord < Record
 
-      def initialize timestamp, raw_data
+      def initialize(timestamp, raw_data)
         super timestamp, raw_data
       end
 
-      def rpm pole_count
+      def rpm(pole_count)
         raw_rpm * pole_count
       end
 
@@ -98,7 +98,7 @@ module Spektrum
         raw_voltage != 0xFFFF
       end
 
-      def temperature unit = :f
+      def temperature(unit = :f)
         @temperature ||= two_byte_field(6..7)
         case unit
         when :f
@@ -128,7 +128,7 @@ module Spektrum
 
     class FlightLogRecord < Record
 
-      def initialize timestamp, raw_data
+      def initialize(timestamp, raw_data)
         super timestamp, raw_data
       end
 
@@ -157,7 +157,7 @@ module Spektrum
 
     class GForceRecord < Record
 
-      def initialize timestamp, raw_data
+      def initialize(timestamp, raw_data)
         super timestamp, raw_data
       end
 
@@ -189,7 +189,7 @@ module Spektrum
 
     class GPSRecord1 < Record
 
-      def initialize timestamp, raw_data
+      def initialize(timestamp, raw_data)
         super timestamp, raw_data
       end
 
@@ -198,7 +198,7 @@ module Spektrum
       # @param unit one of :feet, :meters to define desired unit
       # @return [Float] altitude in the desired unit
       # @note This conversion has been verified via Spektrum STi
-      def altitude unit = :feet
+      def altitude(unit = :feet)
         @altitude ||= (hex_byte_field(3) * 100) + hex_byte_field(2)
         case unit
         when :feet
@@ -272,7 +272,7 @@ module Spektrum
         multiplier * convert_latlon([hundreds, elements].flatten)
       end
 
-      def convert_latlon elts
+      def convert_latlon(elts)
         raise ArgumentError unless elts.length == 5
         elts[0] * 100 + elts[1].to_i + ("#{elts[2]}.#{elts[3]}#{elts[4]}".to_f / 60.0)
       end
@@ -281,7 +281,7 @@ module Spektrum
 
     class GPSRecord2 < Record
 
-      def initialize timestamp, raw_data
+      def initialize(timestamp, raw_data)
         super timestamp, raw_data
       end
 
@@ -290,7 +290,7 @@ module Spektrum
       # @param unit one of :knots, :mph, :kph to define desired unit
       # @return [Float] speed in the desired unit
       # @note This conversion has been verified via Spektrum STi
-      def speed unit = :knots
+      def speed(unit = :knots)
         @speed ||= (hex_byte_field(3) * 100) + hex_byte_field(2)
         case unit
         when :knots
@@ -310,7 +310,7 @@ module Spektrum
       # @note This conversion has been verified via Spektrum STi
       def time
         elements = 7.downto(4).map { |i| hex_byte_field(i) }
-        @time ||= "%.2i:%.2i:%.2i.%.2i" % elements
+        @time ||= '%.2i:%.2i:%.2i.%.2i' % elements
       end
 
       # Gets the number of satellites current visible and in-use.
@@ -325,7 +325,7 @@ module Spektrum
 
     class SpeedRecord < Record
 
-      def initialize timestamp, raw_data
+      def initialize(timestamp, raw_data)
         super timestamp, raw_data
       end
 
@@ -351,7 +351,7 @@ module Spektrum
 
     class MysteryRecord < Record
 
-      def initialize timestamp, raw_data
+      def initialize(timestamp, raw_data)
         super timestamp, raw_data
       end
 
@@ -371,7 +371,7 @@ module Spektrum
           0xFF => FlightLogRecord,
       }
 
-      def self.create type, timestamp, raw_data
+      def self.create(type, timestamp, raw_data)
         @@types.fetch(type, MysteryRecord).new(timestamp, raw_data)
       end
 

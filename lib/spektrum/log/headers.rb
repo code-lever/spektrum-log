@@ -9,7 +9,7 @@ module Spektrum
       # Creates a new header.
       #
       # @param [String] raw_data string of data from the data file for this header
-      def initialize raw_data
+      def initialize(raw_data)
         @raw_data = raw_data
       end
 
@@ -18,7 +18,7 @@ module Spektrum
     # Helper class to create the correct type of header for the given data.
     class Headers
 
-      def self.create raw_data
+      def self.create(raw_data)
         Header.new(raw_data)
       end
 
