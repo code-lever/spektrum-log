@@ -1,5 +1,6 @@
-require "spektrum/log/flight"
-require "spektrum/log/headers"
-require "spektrum/log/file"
-require "spektrum/log/records"
-require "spektrum/log/version"
+require 'spektrum/log/buffered_file'
+require 'spektrum/log/file'
+require 'spektrum/log/flight'
+require 'spektrum/log/headers'
+require 'spektrum/log/records'
+require 'spektrum/log/version'
