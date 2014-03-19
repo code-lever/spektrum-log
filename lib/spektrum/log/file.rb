@@ -1,5 +1,3 @@
-require 'open-uri'
-
 module Spektrum
   module Log
 
@@ -23,51 +21,52 @@ module Spektrum
 
         first_word = true
 
-        open(uri, 'rb') do |file|
-          loop do
-            first4 = file.read(4)
+        file = BufferedFile.new(uri, 'rb')
+        loop do
+          first4 = file.read(4)
 
-            # quick check to see if this could even be a Spektrum TLM file
-            if first_word
-              if first4.nil? || (0xFFFFFFFF != first4.unpack('V')[0])
-                raise ArgumentError, 'File does not appear to be a Spektrum log'
-              end
-              first_word = false
+          # quick check to see if this could even be a Spektrum TLM file
+          if first_word
+            if first4.nil? || (0xFFFFFFFF != first4.unpack('V')[0])
+              raise ArgumentError, 'File does not appear to be a Spektrum log'
+            end
+            first_word = false
+          end
+
+          if first4.nil?
+            if headers_complete || !records.empty?
+              # we have records, this is a new entry
+              @flights << Flight.new(headers, records)
+              headers = []
+              records = []
+            end
+            break
+          end
+
+          first = first4.unpack('V')[0]
+          if 0xFFFFFFFF == first
+            if headers_complete || !records.empty?
+              # we have records, this is a new entry
+              @flights << Flight.new(headers, records)
+              headers = []
+              records = []
+              headers_complete = false
             end
 
-            if first4.nil?
-              if headers_complete || !records.empty?
-                # we have records, this is a new entry
-                @flights << Flight.new(headers, records)
-                headers = []
-                records = []
-              end
-              break
-            end
+            rest = file.read(32)
+            headers << Headers.create(rest)
 
-            first = first4.unpack('V')[0]
-            if 0xFFFFFFFF == first
-              if headers_complete || !records.empty?
-                # we have records, this is a new entry
-                @flights << Flight.new(headers, records)
-                headers = []
-                records = []
-                headers_complete = false
-              end
-
-              rest = file.read(32)
-              headers << Headers.create(rest)
-
-              headers_complete = rest.unpack('S')[0] == 0x1717
-            else
-              data = file.read(16)
-              type = data[0].unpack('C')[0]
-              records << Records.create(type, first, data)
-            end
+            headers_complete = rest.unpack('S')[0] == 0x1717
+          else
+            data = file.read(16)
+            type = data[0].unpack('C')[0]
+            records << Records.create(type, first, data)
           end
         end
-      rescue
-        raise ArgumentError, 'File does not appear to be a Spektrum log'
+      rescue => e
+        raise ArgumentError, "File does not appear to be a Spektrum log (#{e})"
+      ensure
+        file.close
       end
 
       # Gets the total duration of all flights contained within.
