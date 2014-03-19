@@ -30,7 +30,7 @@ module Spektrum
             # quick check to see if this could even be a Spektrum TLM file
             if first_word
               if first4.nil? || (0xFFFFFFFF != first4.unpack('V')[0])
-                raise ArgumentError, 'File does not appear to be an Spektrum log'
+                raise ArgumentError, 'File does not appear to be a Spektrum log'
               end
               first_word = false
             end
@@ -67,7 +67,7 @@ module Spektrum
           end
         end
       rescue
-        raise ArgumentError, 'File does not appear to be an Spektrum log'
+        raise ArgumentError, 'File does not appear to be a Spektrum log'
       end
 
       # Gets the total duration of all flights contained within.
