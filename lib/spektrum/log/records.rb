@@ -309,11 +309,10 @@ module Spektrum
       # @return [String] UTC 24-hour time
       # @note This conversion has been verified via Spektrum STi
       def time
-        elements = 7.downto(4).map { |i| hex_byte_field(i) }
-        @time ||= '%.2i:%.2i:%.2i.%.2i' % elements
+        @time ||= '%.2i:%.2i:%.2i.%.2i' % 7.downto(4).map { |i| hex_byte_field(i) }
       end
 
-      # Gets the number of satellites current visible and in-use.
+      # Gets the number of satellites currently visible and in-use.
       #
       # @return [Integer] number of active satellites
       # @note This conversion has been verified via Spektrum STi
