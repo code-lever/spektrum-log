@@ -14,15 +14,15 @@ describe Spektrum::Log::BasicDataRecord do
 
     let(:raw_data) { ["FE000123FFFF7FFF0000000000000000"].pack('H*') }
 
-    its(:rpm?) { should be_true }
+    its(:rpm?) { should be(true) }
 
     it 'calculates RPMs appropriately' do
       subject.rpm(6).should eq(1746)
     end
 
-    its(:temperature?) { should be_false }
+    its(:temperature?) { should be(false) }
 
-    its(:voltage?) { should be_false }
+    its(:voltage?) { should be(false) }
 
   end
 
@@ -30,9 +30,9 @@ describe Spektrum::Log::BasicDataRecord do
 
     let(:raw_data) { ["7E00FFFFFFFF00A10000000000000000"].pack('H*') }
 
-    its(:rpm?) { should be_false }
+    its(:rpm?) { should be(false) }
 
-    its(:temperature?) { should be_true }
+    its(:temperature?) { should be(true) }
 
     its(:temperature) { should eq(161) }
 
@@ -40,7 +40,7 @@ describe Spektrum::Log::BasicDataRecord do
       subject.temperature(:c).should be_within(0.1).of(71.7)
     end
 
-    its(:voltage?) { should be_false }
+    its(:voltage?) { should be(false) }
 
   end
 
@@ -48,11 +48,11 @@ describe Spektrum::Log::BasicDataRecord do
 
     let(:raw_data) { ["FE00FFFF13897FFF0000000000000000"].pack('H*') }
 
-    its(:rpm?) { should be_false }
+    its(:rpm?) { should be(false) }
 
-    its(:temperature?) { should be_false }
+    its(:temperature?) { should be(false) }
 
-    its(:voltage?) { should be_true }
+    its(:voltage?) { should be(true) }
 
     its(:voltage) { should eq(50.01) }
 
@@ -62,17 +62,17 @@ describe Spektrum::Log::BasicDataRecord do
 
     let(:raw_data) { ["7E0000A6138900A60000000000000000"].pack('H*') }
 
-    its(:rpm?) { should be_true }
+    its(:rpm?) { should be(true) }
 
     it 'calculates RPMs appropriately' do
       subject.rpm(12).should eq(1992)
     end
 
-    its(:temperature?) { should be_true }
+    its(:temperature?) { should be(true) }
 
     its(:temperature) { should eq(166) }
 
-    its(:voltage?) { should be_true }
+    its(:voltage?) { should be(true) }
 
     its(:voltage) { should eq(50.01) }
 

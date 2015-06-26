@@ -14,7 +14,7 @@ describe Spektrum::Log::FlightLogRecord do
 
     let(:raw_data) { ["FF00FFFF13897FFF0000000000000347"].pack('H*') }
 
-    its(:rx_voltage?) { should be_true }
+    its(:rx_voltage?) { should be(true) }
 
     its(:rx_voltage) { should eq(8.39) }
 
@@ -24,7 +24,7 @@ describe Spektrum::Log::FlightLogRecord do
 
     let(:raw_data) { ["7F00FFFF13897FFF0000000000007FFF"].pack('H*') }
 
-    its(:rx_voltage?) { should be_false }
+    its(:rx_voltage?) { should be(false) }
 
   end
 

@@ -28,9 +28,9 @@ describe Spektrum::Log::Flight do
 
       its(:telemetry_unit) { should == 'TM1000' }
 
-      its(:gps1_records?) { should be_false }
+      its(:gps1_records?) { should be(false) }
 
-      its(:gps2_records?) { should be_true }
+      its(:gps2_records?) { should be(true) }
 
     end
 
@@ -46,9 +46,9 @@ describe Spektrum::Log::Flight do
 
       its(:telemetry_unit) { should == 'TM1000' }
 
-      its(:gps1_records?) { should be_true }
+      its(:gps1_records?) { should be(true) }
 
-      its(:gps2_records?) { should be_true }
+      its(:gps2_records?) { should be(true) }
 
     end
 
@@ -64,9 +64,9 @@ describe Spektrum::Log::Flight do
 
       its(:telemetry_unit) { should == 'TM1000' }
 
-      its(:gps1_records?) { should be_true }
+      its(:gps1_records?) { should be(true) }
 
-      its(:gps2_records?) { should be_true }
+      its(:gps2_records?) { should be(true) }
 
     end
 
@@ -100,7 +100,7 @@ describe Spektrum::Log::Flight do
 
       its(:telemetry_unit) { should == 'TM1100' }
 
-      its(:to_kml?) { should be_false }
+      its(:to_kml?) { should be(false) }
 
     end
 
@@ -112,7 +112,7 @@ describe Spektrum::Log::Flight do
 
       its(:telemetry_unit) { should == 'TM1000' }
 
-      its(:to_kml?) { should be_true }
+      its(:to_kml?) { should be(true) }
 
     end
 
@@ -122,7 +122,7 @@ describe Spektrum::Log::Flight do
 
       its(:model_name) { should eql('ERW|N XL ULTRALIGHT') }
 
-      its(:to_kml?) { should be_true }
+      its(:to_kml?) { should be(true) }
 
     end
 
@@ -132,7 +132,7 @@ describe Spektrum::Log::Flight do
 
       its(:model_name) { should eql('ERW|N XL ULTRALIGHT') }
 
-      its(:to_kml?) { should be_true }
+      its(:to_kml?) { should be(true) }
 
     end
 
@@ -142,7 +142,7 @@ describe Spektrum::Log::Flight do
 
       its(:model_name) { should eql('ERW|N XL ULTRALIGHT') }
 
-      its(:to_kml?) { should be_true }
+      its(:to_kml?) { should be(true) }
 
     end
 
@@ -328,19 +328,19 @@ describe Spektrum::Log::Flight do
 
       its(:telemetry_unit) { should == 'TM1100' }
 
-      its(:altimeter_records?) { should be_false }
+      its(:altimeter_records?) { should be(false) }
 
-      its(:basic_data_records?) { should be_true }
+      its(:basic_data_records?) { should be(true) }
 
-      its(:flight_log_records?) { should be_true }
+      its(:flight_log_records?) { should be(true) }
 
-      its(:g_force_records?) { should be_false }
+      its(:g_force_records?) { should be(false) }
 
-      its(:gps1_records?) { should be_false }
+      its(:gps1_records?) { should be(false) }
 
-      its(:gps2_records?) { should be_false }
+      its(:gps2_records?) { should be(false) }
 
-      its(:speed_records?) { should be_false }
+      its(:speed_records?) { should be(false) }
 
     end
 
@@ -360,15 +360,15 @@ describe Spektrum::Log::Flight do
 
       its(:telemetry_unit) { should == 'TM1000' }
 
-      its(:gps1_records?) { should be_true }
+      its(:gps1_records?) { should be(true) }
 
       it { should have(6419).gps1_records }
 
-      its(:gps2_records?) { should be_true }
+      its(:gps2_records?) { should be(true) }
 
       it { should have(7096).gps2_records }
 
-      its(:to_kml?) { should be_true }
+      its(:to_kml?) { should be(true) }
 
     end
 
@@ -380,15 +380,15 @@ describe Spektrum::Log::Flight do
 
       its(:telemetry_unit) { should == 'TM1000' }
 
-      its(:gps1_records?) { should be_true }
+      its(:gps1_records?) { should be(true) }
 
       it { should have(7718).gps1_records }
 
-      its(:gps2_records?) { should be_true }
+      its(:gps2_records?) { should be(true) }
 
       it { should have(7710).gps2_records }
 
-      its(:to_kml?) { should be_true }
+      its(:to_kml?) { should be(true) }
 
     end
 
@@ -408,15 +408,15 @@ describe Spektrum::Log::Flight do
 
       its(:telemetry_unit) { should == 'TM1000' }
 
-      its(:gps1_records?) { should be_true }
+      its(:gps1_records?) { should be(true) }
 
       it { should have(10647).gps1_records }
 
-      its(:gps2_records?) { should be_true }
+      its(:gps2_records?) { should be(true) }
 
       it { should have(10645).gps2_records }
 
-      its(:to_kml?) { should be_true }
+      its(:to_kml?) { should be(true) }
 
     end
 
@@ -430,11 +430,11 @@ describe Spektrum::Log::Flight do
 
       it { should have(4792).gps1_records }
 
-      its(:gps2_records?) { should be_true }
+      its(:gps2_records?) { should be(true) }
 
       it { should have(4795).gps2_records }
 
-      its(:to_kml?) { should be_true }
+      its(:to_kml?) { should be(true) }
 
     end
 
@@ -586,7 +586,7 @@ describe Spektrum::Log::Flight do
 
       its(:telemetry_unit) { should == 'TM1000' }
 
-      its(:to_kml?) { should be_true }
+      its(:to_kml?) { should be(true) }
 
     end
 
@@ -619,7 +619,7 @@ describe Spektrum::Log::Flight do
       subject { file.flights[1] }
 
       it 'should raise w/o kml data' do
-        expect { subject.to_kml }.to raise_error
+        expect { subject.to_kml }.to raise_error(RuntimeError)
       end
 
     end
@@ -657,7 +657,7 @@ describe Spektrum::Log::Flight do
       subject { file.flights[1] }
 
       it 'should raise w/o kml data' do
-        expect { subject.to_kml_file }.to raise_error
+        expect { subject.to_kml_file }.to raise_error(RuntimeError)
       end
 
     end
@@ -689,7 +689,7 @@ describe Spektrum::Log::Flight do
       subject { file.flights[1] }
 
       it 'should raise w/o kml data' do
-        expect { subject.to_kml_placemark }.to raise_error
+        expect { subject.to_kml_placemark }.to raise_error(RuntimeError)
       end
 
     end

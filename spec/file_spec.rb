@@ -117,7 +117,7 @@ describe Spektrum::Log::File do
       files.should have(17).files
 
       files.each do |f|
-        expect { Spektrum::Log::File.new(f) }.to raise_error
+        expect { Spektrum::Log::File.new(f) }.to raise_error(StandardError)
       end
     end
 
@@ -130,7 +130,7 @@ describe Spektrum::Log::File do
       files.should have(17).files
 
       files.each do |f|
-        Spektrum::Log::File.spektrum?(f).should be_false
+        Spektrum::Log::File.spektrum?(f).should be_falsey
       end
     end
 
@@ -139,7 +139,7 @@ describe Spektrum::Log::File do
       files.should have(10).files
 
       files.each do |f|
-        Spektrum::Log::File.spektrum?(f).should be_true
+        Spektrum::Log::File.spektrum?(f).should be_truthy
       end
     end
 
@@ -159,7 +159,7 @@ describe Spektrum::Log::File do
 
       subject { Spektrum::Log::File.new(data_file('X5-G700.TLM')) }
 
-      its(:to_kml?) { should be_true }
+      its(:to_kml?) { should be(true) }
 
       its(:to_kml) { should be_a(String) }
 
@@ -169,10 +169,10 @@ describe Spektrum::Log::File do
 
       subject { Spektrum::Log::File.new(data_file('3.TLM')) }
 
-      its(:to_kml?) { should be_false }
+      its(:to_kml?) { should be(false) }
 
       it 'should raise w/o kml data' do
-        expect { subject.to_kml }.to raise_error
+        expect { subject.to_kml }.to raise_error(RuntimeError)
       end
 
     end
@@ -199,7 +199,7 @@ describe Spektrum::Log::File do
       subject { Spektrum::Log::File.new(data_file('3.TLM')) }
 
       it 'should raise w/o kml data' do
-        expect { subject.to_kml_file }.to raise_error
+        expect { subject.to_kml_file }.to raise_error(RuntimeError)
       end
 
     end
